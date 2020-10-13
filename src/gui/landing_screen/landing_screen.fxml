@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.landing_screen.LandingScreenController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.landing_screen.LandingScreenController">
     <VBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0">
-        <Button alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Next"
-                textAlignment="CENTER">
+        <HBox alignment="CENTER" spacing="200.0">
+            <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addRecordClick" prefHeight="26.0" prefWidth="114.0" text="Add record" textAlignment="CENTER">
+                <HBox.margin>
+                    <Insets bottom="100.0" />
+                </HBox.margin>
+            </Button>
+            <Button alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Show record" textAlignment="CENTER">
+                <HBox.margin>
+                    <Insets bottom="100.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+        <Line endX="184.20001220703125" startX="-191.8000030517578" />
+        <Button alignment="BASELINE_CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Defaulter list">
             <VBox.margin>
-                <Insets bottom="100.0"/>
-            </VBox.margin>
-        </Button>
-        <Line endX="184.20001220703125" startX="-191.8000030517578"/>
-        <Button alignment="BASELINE_CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0"
-                text="Defaulter list">
-            <VBox.margin>
-                <Insets top="100.0"/>
+                <Insets top="100.0" />
             </VBox.margin>
         </Button>
     </VBox>
