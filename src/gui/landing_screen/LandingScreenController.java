@@ -1,15 +1,34 @@
 package gui.landing_screen;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public class LandingScreenController {
+
+    @FXML
+    private Button selectBtn;
+
+    @FXML
+    private Label fileAddress;
+
+    @FXML
+    public void showFileChooser(ActionEvent event) {
+        System.out.println("File");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"),
+                new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx")
+        );
+
+        fileChooser.showOpenDialog(null);
+
+    }
 
     public void addRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();

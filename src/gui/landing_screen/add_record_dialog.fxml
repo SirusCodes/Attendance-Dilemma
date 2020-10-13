@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+            prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.landing_screen.LandingScreenController">
     <content>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
             <ComboBox prefHeight="26.0" prefWidth="240.0" promptText="Select class">
 
             </ComboBox>
             <HBox alignment="CENTER" spacing="20.0">
-                <Label text="Select date of record" />
-                <DatePicker />
+                <Label text="Select date of record"/>
+                <DatePicker/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+                <Label fx:id="fileAddress" text="Select the file location -->"/>
+                <Button fx:id="selectBtn" text="Select" onAction="#showFileChooser"/>
             </HBox>
         </VBox>
     </content>
-    <ButtonType fx:constant="CLOSE" />
-    <ButtonType fx:constant="NEXT" />
+    <ButtonType fx:constant="CLOSE"/>
+    <ButtonType fx:constant="NEXT"/>
 </DialogPane>
