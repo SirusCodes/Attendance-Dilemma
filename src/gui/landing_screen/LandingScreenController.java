@@ -18,7 +18,7 @@ public class LandingScreenController {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
-        dialog.setTitle("Add Record");
+        dialog.setTitle("Select details");
         Optional<ButtonType> response = dialog.showAndWait();
 
         if (response.isPresent())
@@ -27,6 +27,25 @@ public class LandingScreenController {
     }
 
     public void gotoAddRecordScreen() {
+        System.out.println("NextScreen");
+    }
+
+    public void showRecordClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("show_record_dialog.fxml"));
+        DialogPane dialogPane = fxmlLoader.load();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Select details");
+        Optional<ButtonType> response = dialog.showAndWait();
+
+        if (response.isPresent())
+            if (response.get().equals(ButtonType.NEXT))
+                gotoShowRecordScreen();
+    }
+
+    public void gotoShowRecordScreen() {
         System.out.println("NextScreen");
     }
 }
