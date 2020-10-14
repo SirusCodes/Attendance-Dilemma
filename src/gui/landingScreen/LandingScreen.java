@@ -1,4 +1,4 @@
-package gui.landing_screen;
+package gui.landingScreen;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

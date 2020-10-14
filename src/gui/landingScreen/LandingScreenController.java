@@ -1,18 +1,24 @@
-package gui.landing_screen;
+package gui.landingScreen;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class LandingScreenController {
+public class LandingScreenController implements Initializable {
 
     @FXML
-    private Button selectBtn;
+    private Button selectBtn, addRecordBtn;
 
     @FXML
     private Label fileAddress;
@@ -45,8 +51,14 @@ public class LandingScreenController {
                 gotoAddRecordScreen();
     }
 
-    public void gotoAddRecordScreen() {
-        System.out.println("NextScreen");
+    public void gotoAddRecordScreen() throws IOException {
+        Stage stage = (Stage) addRecordBtn.getScene().getWindow();
+        Parent parent = FXMLLoader.load(getClass().getResource("../addRecord/add_record_screen.fxml"));
+
+        Scene scene = new Scene(parent,960, 540);
+        stage.setScene(scene);
+        stage.setTitle("Add Record");
+        stage.show();
     }
 
     public void showRecordClick(ActionEvent event) throws IOException {
@@ -66,5 +78,10 @@ public class LandingScreenController {
 
     public void gotoShowRecordScreen() {
         System.out.println("NextScreen");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
