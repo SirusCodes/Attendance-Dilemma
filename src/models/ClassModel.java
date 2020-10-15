@@ -14,6 +14,14 @@ public class ClassModel {
         this.dateTime = dateTime;
     }
 
+    public ClassModel(int noOfLectures, String branch, String year, String batch, String dateTime) {
+        this.noOfLectures = noOfLectures;
+        this.branch = branch;
+        this.year = year;
+        this.batch = batch;
+        this.dateTime = dateTime;
+    }
+
     public ClassModel() {
     }
 
