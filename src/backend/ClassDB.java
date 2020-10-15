@@ -51,5 +51,27 @@ public class ClassDB {
         return list;
     }
 
+    public void insert(int classId, String branch, String year, String batch, int noOfLectures, String dateTime) throws SQLException, ClassNotFoundException {
+        //int classId,noOfLectures;
+        //String branch,year,batch,dateTime;
 
+        String query = "insert into class values (?,?,?,?,?,?)";
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        con = DriverManager.getConnection(url,uname,pass);
+
+        PreparedStatement st = con.prepareStatement(query);
+        st.setInt(1,classId);
+        st.setString(2,branch);
+        st.setString(3,year);
+        st.setString(4,batch);
+        st.setInt(5,noOfLectures);
+        st.setString(6,dateTime);
+
+        st.executeUpdate();
+
+        st.close();
+        con.close();
+    }
 }
