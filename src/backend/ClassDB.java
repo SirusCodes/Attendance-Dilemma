@@ -1,9 +1,12 @@
 package backend;
 
+import models.ClassModel;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ClassDB {
-   public ClassDB(){
+    public ClassDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -17,7 +20,9 @@ public class ClassDB {
     private String uname = "root";
     private String pass = "1234";
 
-    public void read()  {
+    public ArrayList<ClassModel> read() {
+        ArrayList<ClassModel> list = new ArrayList<>();
+
         String query = "select * from class";
 
         try {
@@ -27,8 +32,14 @@ public class ClassDB {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                userData = rs.getInt(1) + " " + rs.getString(2);
-                System.out.println(userData);
+                ClassModel classModel = new ClassModel(rs.getInt("class_id"),
+                        rs.getString("branch"),
+                        rs.getString("year"),
+                        rs.getString("batch"),
+                        rs.getInt("no_of_lecture"),
+                        rs.getString("last_datetime_added")
+                );
+                list.add(classModel);
             }
 
             st.close();
@@ -36,6 +47,8 @@ public class ClassDB {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        return list;
     }
 
 
