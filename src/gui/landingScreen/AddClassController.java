@@ -15,6 +15,8 @@ public class AddClassController implements Initializable {
     private TextField classField;
     @FXML
     private TextField yearField;
+    @FXML
+    private TextField branchField;
 
     @FXML
     private Button saveBtn;
@@ -23,11 +25,15 @@ public class AddClassController implements Initializable {
 
 
     public void getClassDetails() {
-        System.out.println(classField.getText() + " " + yearField.getText());
+        System.out.println(classField.getText() + " " + yearField.getText() + " " + branchField.getText());
     }
 
     public void setBackOnAction(Window window) {
         this.window = window;
+    }
+
+    public void saveBtnClick() {
+        getClassDetails();
     }
 
     public void closeBtnClick(ActionEvent event) {
@@ -36,6 +42,11 @@ public class AddClassController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        saveBtn.disableProperty().bind(classField.textProperty().isEmpty().or(yearField.textProperty().isEmpty()));
+        saveBtn.disableProperty().bind(classField.textProperty().isEmpty()
+                .or(yearField.textProperty().isEmpty()
+                        .or(branchField.textProperty().isEmpty()
+                        )
+                )
+        );
     }
 }

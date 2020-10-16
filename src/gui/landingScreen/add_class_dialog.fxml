@@ -7,8 +7,8 @@
             prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.landingScreen.AddClassController">
     <content>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
-            <children>
+        <VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30">
                 <VBox>
                     <Label text="Class"/>
                     <TextField fx:id="classField" promptText="S2/IT2"/>
@@ -23,14 +23,24 @@
                         <Insets left="100.0" right="100.0"/>
                     </VBox.margin>
                 </VBox>
-                <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                    <Button text="Save" fx:id="saveBtn"/>
-                    <Button text="Close" onAction="#closeBtnClick"/>
+                <VBox>
+                    <Label text="Batch"/>
+                    <TextField fx:id="branchField" promptText="IT"/>
                     <VBox.margin>
-                        <Insets right="20.0"/>
+                        <Insets left="100.0" right="100.0"/>
                     </VBox.margin>
-                </HBox>
-            </children>
+                </VBox>
+                <VBox.margin>
+                    <Insets top="25.0" bottom="25.0"/>
+                </VBox.margin>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                <Button text="Save" fx:id="saveBtn" onAction="#saveBtnClick"/>
+                <Button text="Close" onAction="#closeBtnClick"/>
+                <VBox.margin>
+                    <Insets right="20.0"/>
+                </VBox.margin>
+            </HBox>
         </VBox>
     </content>
 </DialogPane>
