@@ -44,8 +44,6 @@ public class LandingScreenController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
-        AddClassController controller = fxmlLoader.getController();
-
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
         dialog.setTitle("Select details");

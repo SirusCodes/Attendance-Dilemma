@@ -14,6 +14,7 @@
                 </HBox.margin>
             </Button>
             <Button alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Save"
+                    onAction="#saveBtnClicked"
                     textAlignment="CENTER">
                 <HBox.margin>
                     <Insets bottom="50.0" top="50"/>
