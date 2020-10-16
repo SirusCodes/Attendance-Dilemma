@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,12 +19,13 @@ import java.util.ResourceBundle;
 public class LandingScreenController implements Initializable {
 
     @FXML
-    private Button selectBtn, addRecordBtn;
+    private Button selectBtn;
+    @FXML
+    private Button addRecordBtn;
 
     @FXML
     private Label fileAddress;
 
-    @FXML
     public void showFileChooser(ActionEvent event) {
         System.out.println("File");
         FileChooser fileChooser = new FileChooser();
@@ -36,10 +38,13 @@ public class LandingScreenController implements Initializable {
 
     }
 
+
     public void addRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+
+        AddClassController controller = fxmlLoader.getController();
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
@@ -51,11 +56,29 @@ public class LandingScreenController implements Initializable {
                 gotoAddRecordScreen();
     }
 
+    @FXML
+    public void addClassClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("add_class_dialog.fxml"));
+        DialogPane dialogPane = fxmlLoader.load();
+
+        AddClassController controller = fxmlLoader.getController();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Add Class");
+
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(e -> window.hide());
+        controller.setBackOnAction(window);
+
+        dialog.showAndWait();
+    }
+
     public void gotoAddRecordScreen() throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
         Parent parent = FXMLLoader.load(getClass().getResource("../addRecord/add_record_screen.fxml"));
 
-        Scene scene = new Scene(parent,960, 540);
+        Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
         stage.setTitle("Add Record");
         stage.show();

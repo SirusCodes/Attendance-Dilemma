@@ -20,10 +20,15 @@
             </Button>
         </HBox>
         <Line endX="184.20001220703125" startX="-191.8000030517578" />
-        <Button alignment="BASELINE_CENTER" mnemonicParsing="false" onAction="#showRecordClick" prefHeight="26.0" prefWidth="114.0" text="Defaulter list">
-            <VBox.margin>
-                <Insets top="100.0" />
-            </VBox.margin>
-        </Button>
+        <HBox alignment="CENTER" spacing="200.0">
+            <Button alignment="BASELINE_CENTER" mnemonicParsing="false" onAction="#showRecordClick" prefHeight="26.0" prefWidth="114.0" text="Defaulter list">
+            <HBox.margin>
+               <Insets top="100.0" />
+            </HBox.margin></Button>
+            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#addClassClick" prefHeight="26.0" prefWidth="114.0" text="Add Class">
+            <HBox.margin>
+               <Insets top="100.0" />
+            </HBox.margin></Button>
+        </HBox>
     </VBox>
 </AnchorPane>
