@@ -54,6 +54,31 @@ public class LandingScreenController implements Initializable {
                 gotoAddRecordScreen();
     }
 
+    public void addStudentClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../addStudent/select_class.fxml"));
+        DialogPane dialogPane = fxmlLoader.load();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Select Class");
+        Optional<ButtonType> response = dialog.showAndWait();
+
+        if (response.isPresent())
+            if (response.get().equals(ButtonType.NEXT))
+                gotoAddStudentScreen();
+    }
+
+    private void gotoAddStudentScreen() throws IOException {
+        Stage stage = (Stage) addRecordBtn.getScene().getWindow();
+        Parent parent = FXMLLoader.load(getClass().getResource("../addStudent/add_student_screen.fxml"));
+
+        Scene scene = new Scene(parent, 960, 540);
+        stage.setScene(scene);
+        stage.setTitle("Add Record");
+        stage.show();
+    }
+
     @FXML
     public void addClassClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
