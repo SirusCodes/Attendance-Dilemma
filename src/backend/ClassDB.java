@@ -50,7 +50,7 @@ public class ClassDB {
         return list;
     }
 
-    public void insert(int classId, String branch, String year, String batch, int noOfLectures, String dateTime) throws SQLException, ClassNotFoundException {
+    public void insert(ClassModel model) throws SQLException, ClassNotFoundException {
         //int classId,noOfLectures;
         //String branch,year,batch,dateTime;
 
@@ -61,12 +61,12 @@ public class ClassDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,classId);
-        st.setString(2,branch);
-        st.setString(3,year);
-        st.setString(4,batch);
-        st.setInt(5,noOfLectures);
-        st.setString(6,dateTime);
+        st.setInt(1,model.getClassId());
+        st.setString(2,model.getBranch());
+        st.setString(3,model.getYear());
+        st.setString(4,model.getBatch());
+        st.setInt(5,model.getNoOfLectures());
+        st.setString(6,model.getDateTime());
 
         st.executeUpdate();
 

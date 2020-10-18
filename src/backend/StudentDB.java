@@ -1,6 +1,5 @@
 package backend;
 
-import models.ClassModel;
 import models.StudentModel;
 
 import java.sql.*;
@@ -50,7 +49,7 @@ public class StudentDB {
         return list;
     }
 
-    public void insert(int studentID, int sclassID, String studentName) throws SQLException, ClassNotFoundException {
+    public void insert(StudentModel model) throws SQLException, ClassNotFoundException {
         //int classId,noOfLectures;
         //String branch,year,batch,dateTime;
 
@@ -61,9 +60,9 @@ public class StudentDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,studentID);
-        st.setInt(2,sclassID);
-        st.setString(3,studentName);
+        st.setInt(1,model.getStudentId());
+        st.setInt(2,model.getClassId());
+        st.setString(3,model.getStudentName());
 
         st.executeUpdate();
 

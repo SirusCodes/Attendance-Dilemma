@@ -1,6 +1,5 @@
 package backend;
 
-import models.DateModel;
 import models.MonthModel;
 
 import java.sql.*;
@@ -50,7 +49,7 @@ public class MonthDB {
         return list;
     }
 
-    public void insert(int studentID, int month, int noOfLecture) throws SQLException, ClassNotFoundException {
+    public void insert(MonthModel model) throws SQLException, ClassNotFoundException {
         //int classId,noOfLectures;
         //String branch,year,batch,dateTime;
 
@@ -61,9 +60,9 @@ public class MonthDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,studentID);
-        st.setInt(2,month);
-        st.setInt(3,noOfLecture);
+        st.setInt(1,model.getStudentId());
+        st.setInt(2,model.getMonth());
+        st.setInt(3,model.getNoOfLectures());
 
         st.executeUpdate();
 

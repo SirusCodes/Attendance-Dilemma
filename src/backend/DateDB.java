@@ -49,7 +49,7 @@ public class DateDB {
         return list;
     }
 
-    public void insert(int studentID, String date, String attendance) throws SQLException, ClassNotFoundException {
+    public void insert(DateModel model) throws SQLException, ClassNotFoundException {
         //int classId,noOfLectures;
         //String branch,year,batch,dateTime;
 
@@ -60,9 +60,9 @@ public class DateDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,studentID);
-        st.setString(2,date);
-        st.setString(3,attendance);
+        st.setInt(1,model.getStudentId());
+        st.setString(2,model.getDate());
+        st.setString(3,model.getAttendance());
 
         st.executeUpdate();
 
