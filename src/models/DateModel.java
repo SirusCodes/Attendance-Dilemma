@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Reader;
+
 public class DateModel {
     private int studentId;
     private String date;
-    private char attendance;
+    private String attendance;
 
-    public DateModel(int studentId, String date, char attendance) {
+    public DateModel(int studentId, String date, String attendance) {
         this.studentId = studentId;
         this.date = date;
         this.attendance = attendance;
@@ -30,11 +32,11 @@ public class DateModel {
         this.date = date;
     }
 
-    public char getAttendance() {
+    public String getAttendance() {
         return attendance;
     }
 
-    public void setAttendance(char attendance) {
+    public void setAttendance(String attendance) {
         this.attendance = attendance;
     }
 

@@ -22,7 +22,7 @@ public class ClassModel {
         this.dateTime = dateTime;
     }
 
-    public ClassModel() {
+    public ClassModel(int student_id, int no_of_lecture, String last_datetime_added) {
     }
 
     public int getClassId() {

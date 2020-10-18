@@ -3,10 +3,10 @@ package models;
 public class MonthModel {
     private int studentId,noOfLectures,month;
 
-    public MonthModel(int studentId, int noOfLectures, int month) {
+    public MonthModel(int studentId, int month, int noOfLectures) {
         this.studentId = studentId;
-        this.noOfLectures = noOfLectures;
         this.month = month;
+        this.noOfLectures = noOfLectures;
     }
 
     public MonthModel() {
@@ -24,10 +24,6 @@ public class MonthModel {
         return noOfLectures;
     }
 
-    public void setNoOfLectures(int noOfLectures) {
-        this.noOfLectures = noOfLectures;
-    }
-
     public int getMonth() {
         return month;
     }
@@ -36,12 +32,16 @@ public class MonthModel {
         this.month = month;
     }
 
+    public void setNoOfLectures(int noOfLectures) {
+        this.noOfLectures = noOfLectures;
+    }
+
     @Override
     public String toString() {
         return "MonthModel{" +
                 "studentId=" + studentId +
-                ", noOfLectures=" + noOfLectures +
                 ", month=" + month +
+                ", noOfLectures=" + noOfLectures +
                 '}';
     }
 }

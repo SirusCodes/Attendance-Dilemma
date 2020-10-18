@@ -15,10 +15,9 @@ public class ClassDB {
     }
 
     private Connection con;
-    private String userData;
-    private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
-    private String uname = "root";
-    private String pass = "1234";
+    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
+    final private String uname = "root";
+    final private String pass = "1234";
 
     public ArrayList<ClassModel> read() {
         ArrayList<ClassModel> list = new ArrayList<>();
