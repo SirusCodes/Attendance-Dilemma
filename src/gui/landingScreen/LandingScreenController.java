@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -31,11 +32,15 @@ public class LandingScreenController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"),
-                new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx")
+                new FileChooser.ExtensionFilter("Excel Files (*.xlsx, *.xls)", "*.xlsx","*.xls")
         );
 
-        fileChooser.showOpenDialog(null);
+        final File file = fileChooser.showOpenDialog(null);
 
+        if (file != null) {
+            fileAddress.setText(file.getAbsolutePath());
+            selectBtn.setText("Change");
+        }
     }
 
 

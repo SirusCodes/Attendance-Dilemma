@@ -3,11 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 <DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
             prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.landingScreen.LandingScreenController">
     <content>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20">
             <ComboBox fx:id="classComboBox" prefHeight="26.0" prefWidth="240.0" promptText="Select class"/>
             <HBox alignment="CENTER" spacing="20.0">
                 <Label text="Select date of record"/>
@@ -17,6 +18,13 @@
                 <Label fx:id="fileAddress" text="Select the file location -->"/>
                 <Button fx:id="selectBtn" text="Select" onAction="#showFileChooser"/>
             </HBox>
+            <VBox >
+                <Label text="Minimum duration(in %)"/>
+                <TextField text="75" promptText="75"/>
+                <VBox.margin>
+                    <Insets left="100" right="100"/>
+                </VBox.margin>
+            </VBox>
         </VBox>
     </content>
     <ButtonType fx:constant="CLOSE"/>
