@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+            prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.addStudent.AddStudentController">
+    <content>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
+            <VBox>
+                <Label text="Student Name"/>
+                <TextField promptText="Darshan Rander"/>
+                <VBox.margin>
+                    <Insets left="100.0" right="100.0"/>
+                </VBox.margin>
+            </VBox>
+            <VBox>
+                <Label text="Teams ID"/>
+                <TextField promptText="microsoft@email.com"/>
+                <VBox.margin>
+                    <Insets left="100.0" right="100.0"/>
+                </VBox.margin>
+            </VBox>
+        </VBox>
+    </content>
+    <ButtonType fx:constant="CLOSE"/>
+    <ButtonType fx:constant="FINISH"/>
+</DialogPane>

@@ -42,7 +42,7 @@ public class AddStudentController {
 
     public void addStudentClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("../addStudent/select_class.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();
