@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class LandingScreenController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"),
-                new FileChooser.ExtensionFilter("Excel Files (*.xlsx, *.xls)", "*.xlsx","*.xls")
+                new FileChooser.ExtensionFilter("Excel Files (*.xlsx, *.xls)", "*.xlsx", "*.xls")
         );
 
         final File file = fileChooser.showOpenDialog(null);
@@ -95,11 +94,10 @@ public class LandingScreenController implements Initializable {
         dialog.setDialogPane(dialogPane);
         dialog.setTitle("Add Class");
 
-        Window window = dialog.getDialogPane().getScene().getWindow();
-        window.setOnCloseRequest(e -> window.hide());
-        controller.setBackOnAction(window);
-
-        dialog.showAndWait();
+        final Optional<ButtonType> response = dialog.showAndWait();
+        if(response.isPresent())
+            if (response.get() == ButtonType.FINISH)
+                controller.getClassDetails();
     }
 
     public void gotoAddRecordScreen() throws IOException {
