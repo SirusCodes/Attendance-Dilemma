@@ -1,11 +1,9 @@
 import backend.ClassDB;
 import backend.StudentDB;
 import backend.DateDB;
-import backend.MonthDB;
 import models.ClassModel;
 import models.StudentModel;
 import models.DateModel;
-import models.MonthModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,10 +21,6 @@ public class Main {
         DateDB ddb = new DateDB();
         ArrayList<DateModel> dlist = ddb.read();
         dlist.forEach(System.out::println);
-        //ddb.insert(77,"2020-10-10","P");
-        MonthDB mdb = new MonthDB();
-        ArrayList<MonthModel> mlist = mdb.read();
-        mlist.forEach(System.out::println);
-        //mdb.insert(77,10,13);
+        //ddb.insert(77,"2020-10-10","P";
     }
 }

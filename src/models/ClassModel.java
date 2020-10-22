@@ -3,26 +3,28 @@ package models;
 public class ClassModel {
     private int classId, noOfLectures;
     private String branch, year, batch,dateTime;
+    private Boolean lab;
 
-
-    public ClassModel(int classId, String branch, String year, String batch, int noOfLectures, String dateTime) {
+    public ClassModel(int classId, String branch, String year, String batch, int noOfLectures, String dateTime, Boolean lab) {
         this.classId = classId;
         this.noOfLectures = noOfLectures;
         this.branch = branch;
         this.year = year;
         this.batch = batch;
         this.dateTime = dateTime;
+        this.lab = lab;
     }
 
-    public ClassModel(int noOfLectures, String branch, String year, String batch, String dateTime) {
+    public ClassModel(int noOfLectures, String branch, String year, String batch, String dateTime, Boolean lab) {
         this.noOfLectures = noOfLectures;
         this.branch = branch;
         this.year = year;
         this.batch = batch;
         this.dateTime = dateTime;
+        this.lab = lab;
     }
 
-    public ClassModel(int student_id, int no_of_lecture, String last_datetime_added) {
+    public ClassModel() {
     }
 
     public int getClassId() {
@@ -73,6 +75,14 @@ public class ClassModel {
         this.dateTime = dateTime;
     }
 
+    public Boolean getLab() {
+        return lab;
+    }
+
+    public void setLab(Boolean lab) {
+        this.lab = lab;
+    }
+
     @Override
     public String toString() {
         return "ClassModel{" +
@@ -82,6 +92,7 @@ public class ClassModel {
                 ", year='" + year + '\'' +
                 ", batch='" + batch + '\'' +
                 ", dateTime='" + dateTime + '\'' +
+                ", lab=" + lab +
                 '}';
     }
 }

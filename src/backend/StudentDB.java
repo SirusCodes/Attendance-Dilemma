@@ -17,8 +17,8 @@ public class StudentDB {
 
     private Connection con;
     final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
-    final private String uname = "root";
-    final private String pass = "1234";
+    final private String uname = Auth.UNAME;
+    final private String pass = Auth.PASSWORD;
 
     public ArrayList<StudentModel> read() {
         ArrayList<StudentModel> list = new ArrayList<>();
