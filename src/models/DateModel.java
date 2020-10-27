@@ -1,13 +1,13 @@
 package models;
 
-import java.io.Reader;
+import java.sql.Date;
 
 public class DateModel {
     private int studentId;
-    private String date;
+    private Date date;
     private String attendance;
 
-    public DateModel(int studentId, String date, String attendance) {
+    public DateModel(int studentId, Date date, String attendance) {
         this.studentId = studentId;
         this.date = date;
         this.attendance = attendance;
@@ -24,11 +24,11 @@ public class DateModel {
         this.studentId = studentId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
