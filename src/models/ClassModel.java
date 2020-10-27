@@ -1,11 +1,14 @@
 package models;
 
+import java.sql.Date;
+
 public class ClassModel {
     private int classId, noOfLectures;
-    private String branch, year, batch,dateTime;
+    private String branch, year, batch;
+    private Date dateTime;
     private Boolean lab;
 
-    public ClassModel(int classId, String branch, String year, String batch, int noOfLectures, String dateTime, Boolean lab) {
+    public ClassModel(int classId, String branch, String year, String batch, int noOfLectures, Date dateTime, Boolean lab) {
         this.classId = classId;
         this.noOfLectures = noOfLectures;
         this.branch = branch;
@@ -15,7 +18,7 @@ public class ClassModel {
         this.lab = lab;
     }
 
-    public ClassModel(int noOfLectures, String branch, String year, String batch, String dateTime, Boolean lab) {
+    public ClassModel(int noOfLectures, String branch, String year, String batch, Date dateTime, Boolean lab) {
         this.noOfLectures = noOfLectures;
         this.branch = branch;
         this.year = year;
@@ -67,11 +70,11 @@ public class ClassModel {
         this.batch = batch;
     }
 
-    public String getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(String dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
