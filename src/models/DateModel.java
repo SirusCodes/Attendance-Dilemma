@@ -1,6 +1,7 @@
 package models;
 
-import java.sql.Date;
+import java.io.Reader;
+import java.util.Date;
 
 public class DateModel {
     private int studentId;
@@ -13,6 +14,8 @@ public class DateModel {
         this.attendance = attendance;
     }
 
+    public DateModel() {
+    }
 
     public int getStudentId() {
         return studentId;

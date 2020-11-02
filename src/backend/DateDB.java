@@ -4,8 +4,6 @@ import models.DateModel;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class DateDB {
 
@@ -36,7 +34,7 @@ public class DateDB {
             while (rs.next()) {
                 DateModel dateModel = new DateModel(
                         rs.getInt("dstudent_id"),
-                        rs.getDate("date", Calendar.getInstance(Locale.ENGLISH)),
+                        rs.getDate("date"),
                         rs.getString("attendance")
                 );
                 list.add(dateModel);
@@ -63,7 +61,7 @@ public class DateDB {
 
         PreparedStatement st = con.prepareStatement(query);
         st.setInt(1,model.getStudentId());
-        st.setDate(2,model.getDate());
+        st.setDate(2, (Date) model.getDate());
         st.setString(3,model.getAttendance());
 
         st.executeUpdate();
