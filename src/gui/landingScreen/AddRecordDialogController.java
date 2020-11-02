@@ -1,17 +1,25 @@
 package gui.landingScreen;
 
 import backend.ClassDB;
+import gui.observableModel.GenericObservable;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.ClassModel;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -21,9 +29,6 @@ public class AddRecordDialogController implements Initializable {
     public ComboBox<String> addRecordClassComboBox;
     public Label fileAddress;
     public Button selectBtn;
-
-    private ArrayList<ClassModel> classModels = new ArrayList<>();
-    private ArrayList<String> strClass = new ArrayList<>();
 
     public void showFileChooser(ActionEvent event) {
         System.out.println("File");
@@ -40,22 +45,12 @@ public class AddRecordDialogController implements Initializable {
             selectBtn.setText("Change");
         }
     }
+    void setClassCombobox(GenericObservable data){
+        addRecordClassComboBox.itemsProperty().bind(data.listProperty());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setClassDetails();
-        ObservableList<String> classList = FXCollections.observableArrayList(strClass);
-        addRecordClassComboBox.getItems().addAll(classList);
-    }
 
-    private void setClassDetails() {
-        ClassDB db = new ClassDB();
-        classModels = db.read();
-        for (ClassModel model : classModels) {
-            String name = model.getLab() ?
-                    String.format("%s%s%s %s", model.getYear(), model.getBranch(), model.getBatch(), "Lab") :
-                    String.format("%s%s%s", model.getYear(), model.getBranch(), model.getBatch());
-            strClass.add(name);
-        }
     }
 }

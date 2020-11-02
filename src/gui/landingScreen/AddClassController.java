@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddClassController implements Initializable {
+public class AddClassController {
     @FXML
     private ComboBox<String> classComboBox, yearComboBox, branchComboBox;
 
@@ -36,10 +36,5 @@ public class AddClassController implements Initializable {
         } catch (SQLException | ClassNotFoundException throwable) {
             throwable.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }
