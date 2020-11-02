@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.landingScreen.AddClassController">
+<?import java.lang.*?>
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+            prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.landingScreen.AddClassController">
     <content>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30">
             <VBox alignment="CENTER">
-                <Label text="Class" />
-                <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Select Class">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="1" />
-                            <String fx:value="2" />
-                            <String fx:value="3" />
-                            <String fx:value="4" />
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-                <VBox.margin>
-                    <Insets left="100.0" right="100.0" />
-                </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER">
-                <Label text="Year" />
+                <Label text="Year"/>
                 <ComboBox fx:id="yearComboBox" prefWidth="150.0" promptText="Select Year">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="FE" />
-                            <String fx:value="SE" />
-                            <String fx:value="TE" />
-                            <String fx:value="BE" />
+                            <String fx:value="FE"/>
+                            <String fx:value="SE"/>
+                            <String fx:value="TE"/>
+                            <String fx:value="BE"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
                 <VBox.margin>
-                    <Insets left="100.0" right="100.0" />
+                    <Insets left="100.0" right="100.0"/>
                 </VBox.margin>
             </VBox>
             <VBox alignment="CENTER">
-                <Label text="Branch" />
+                <Label text="Branch"/>
                 <ComboBox fx:id="branchComboBox" prefWidth="150.0" promptText="Select Branch">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="IT" />
-                            <String fx:value="CS" />
-                            <String fx:value="EXTC" />
-                            <String fx:value="Chemical" />
-                            <String fx:value="Bio-med" />
-                            <String fx:value="Bio-tech" />
-                            <String fx:value="AI/ML" />
+                            <String fx:value="IT"/>
+                            <String fx:value="CS"/>
+                            <String fx:value="EXTC"/>
+                            <String fx:value="Chemical"/>
+                            <String fx:value="Bio-med"/>
+                            <String fx:value="Bio-tech"/>
+                            <String fx:value="AI/ML"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
                 <VBox.margin>
-                    <Insets left="100.0" right="100.0" />
+                    <Insets left="100.0" right="100.0"/>
                 </VBox.margin>
             </VBox>
-         <CheckBox fx:id="checkBoxLab" mnemonicParsing="false" text="Lab" />
+            <VBox alignment="CENTER">
+                <Label text="Class"/>
+                <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Select Class">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="1"/>
+                            <String fx:value="2"/>
+                            <String fx:value="3"/>
+                            <String fx:value="4"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <VBox.margin>
+                    <Insets left="100.0" right="100.0"/>
+                </VBox.margin>
+            </VBox>
+            <CheckBox fx:id="checkBoxLab" mnemonicParsing="false" text="Lab"/>
             <VBox.margin>
-                <Insets bottom="25.0" top="25.0" />
+                <Insets bottom="25.0" top="25.0"/>
             </VBox.margin>
         </VBox>
     </content>
-   <buttonTypes>
-      <ButtonType fx:constant="FINISH" />
-      <ButtonType fx:constant="CLOSE" />
-   </buttonTypes>
+    <ButtonType fx:constant="FINISH"/>
+    <ButtonType fx:constant="CLOSE"/>
 </DialogPane>
