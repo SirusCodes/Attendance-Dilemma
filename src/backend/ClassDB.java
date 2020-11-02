@@ -36,7 +36,7 @@ public class ClassDB {
                         rs.getString("year"),
                         rs.getString("batch"),
                         rs.getInt("no_of_lecture"),
-                        rs.getString("last_datetime_added"),
+                        rs.getDate("last_datetime_added"),
                         rs.getBoolean("lab")
                 );
                 list.add(classModel);
@@ -82,7 +82,7 @@ public class ClassDB {
         st.setString(3,model.getYear());
         st.setString(4,model.getBatch());
         st.setInt(5,model.getNoOfLectures());
-        st.setString(6,model.getDateTime());
+        st.setDate(6,model.getDateTime());
         st.setBoolean(7,model.getLab());
 
         st.executeUpdate();

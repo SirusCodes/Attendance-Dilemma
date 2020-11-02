@@ -61,7 +61,7 @@ public class DateDB {
 
         PreparedStatement st = con.prepareStatement(query);
         st.setInt(1,model.getStudentId());
-        st.setDate(2, model.getDate());
+        st.setDate(2, (Date) model.getDate());
         st.setString(3,model.getAttendance());
 
         st.executeUpdate();
