@@ -1,7 +1,11 @@
 package gui.landingScreen;
 
 import backend.ClassDB;
+import gui.addStudent.AddStudentController;
+import gui.addStudent.SelectClassDialogController;
 import gui.observableModel.GenericObservable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +36,7 @@ public class LandingScreenController implements Initializable {
     private ArrayList<String> strClass = new ArrayList<>();
     private ArrayList<Integer> classIds = new ArrayList<>();
     private GenericObservable classList;
-
+    private final StringProperty selectedClass = new SimpleStringProperty();
 
     public void addRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -40,7 +44,7 @@ public class LandingScreenController implements Initializable {
         DialogPane dialogPane = fxmlLoader.load();
 
         AddRecordDialogController controller = fxmlLoader.getController();
-        controller.setClassCombobox(classList);
+        controller.setClassComboBox(classList, selectedClass);
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
@@ -48,14 +52,19 @@ public class LandingScreenController implements Initializable {
         Optional<ButtonType> response = dialog.showAndWait();
 
         if (response.isPresent())
-            if (response.get().equals(ButtonType.NEXT))
+            if (response.get().equals(ButtonType.NEXT)) {
+                System.out.println(selectedClass.getValue().toString());
                 gotoAddRecordScreen();
+            }
     }
 
     public void addStudentClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addStudent/select_class.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+
+        SelectClassDialogController controller = fxmlLoader.getController();
+        controller.setClassComboBox(classList, selectedClass);
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
@@ -64,12 +73,17 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT))
-                gotoAddStudentScreen();
+                gotoAddStudentScreen(selectedClass.get());
     }
 
-    private void gotoAddStudentScreen() throws IOException {
+    private void gotoAddStudentScreen(String className) throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
-        Parent parent = FXMLLoader.load(getClass().getResource("../addStudent/add_student_screen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_screen.fxml"));
+        Parent parent = fxmlLoader.load();
+
+        final AddStudentController controller = fxmlLoader.getController();
+        controller.setClassName(className);
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -126,7 +140,7 @@ public class LandingScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setClassDetails();
-        classList = new GenericObservable(strClass,classIds );
+        classList = new GenericObservable(strClass, classIds);
     }
 
     private void setClassDetails() {

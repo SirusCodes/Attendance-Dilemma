@@ -1,27 +1,16 @@
 package gui.landingScreen;
 
-import backend.ClassDB;
 import gui.observableModel.GenericObservable;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import models.ClassModel;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddRecordDialogController implements Initializable {
@@ -45,8 +34,10 @@ public class AddRecordDialogController implements Initializable {
             selectBtn.setText("Change");
         }
     }
-    void setClassCombobox(GenericObservable data){
+
+    void setClassComboBox(GenericObservable data, StringProperty selected) {
         addRecordClassComboBox.itemsProperty().bind(data.listProperty());
+        addRecordClassComboBox.valueProperty().bindBidirectional(selected);
     }
 
     @Override

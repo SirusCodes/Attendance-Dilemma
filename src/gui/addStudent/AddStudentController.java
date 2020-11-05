@@ -1,23 +1,30 @@
 package gui.addStudent;
 
+import io.ReadStudentDetails;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import gui.observableModel.StudentRawModel;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AddStudentController {
     @FXML
+    public TableView<StudentRawModel> studentTableView;
+    @FXML
     private Button backBtn;
+    private String className;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -29,15 +36,40 @@ public class AddStudentController {
         stage.show();
     }
 
+    public void setTableView(ArrayList<StudentRawModel> studentRawModels){
+        TableColumn<StudentRawModel, String> fname = new TableColumn<>("First Name");
+        TableColumn<StudentRawModel, String> lname = new TableColumn<>("Last Name");
+        TableColumn<StudentRawModel, String> email = new TableColumn<>("Email");
+
+        studentTableView.getColumns().addAll(fname,lname,email);
+        final ObservableList<StudentRawModel> data = FXCollections.observableArrayList(studentRawModels);
+
+        fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
+        lname.setCellValueFactory(new PropertyValueFactory<>("lname"));
+        email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        studentTableView.setItems(data);
+    }
+
     public void showFileChooser(ActionEvent event) {
-        System.out.println("File");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"),
-                new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx")
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
         );
 
-        fileChooser.showOpenDialog(null);
+        final File file = fileChooser.showOpenDialog(null);
+        ReadStudentDetails studentDetails = new ReadStudentDetails();
+        ArrayList<StudentRawModel> studentRawModels = new ArrayList<>();
+        try {
+           studentRawModels= studentDetails.getStudentData(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       setTableView(studentRawModels);
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public void addStudentClick(ActionEvent event) throws IOException {

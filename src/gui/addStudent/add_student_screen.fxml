@@ -30,11 +30,7 @@
         </HBox>
     </top>
     <center>
-        <TableView prefHeight="381.0" prefWidth="960.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn prefWidth="75.0" text="C1"/>
-                <TableColumn prefWidth="75.0" text="C2"/>
-            </columns>
-        </TableView>
+        <TableView fx:id="studentTableView" prefHeight="381.0" prefWidth="960.0" BorderPane.alignment="CENTER"/>
+
     </center>
 </BorderPane>
