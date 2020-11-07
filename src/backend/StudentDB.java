@@ -33,7 +33,7 @@ public class StudentDB {
 
             while (rs.next()) {
                 StudentModel studentModel = new StudentModel(
-                        rs.getInt("student_id"),
+                        rs.getString("student_id"),
                         rs.getInt("sclass_id"),
                         rs.getString("student_name")
                 );
@@ -60,7 +60,7 @@ public class StudentDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,model.getStudentId());
+        st.setString(1,model.getStudentId());
         st.setInt(2,model.getClassId());
         st.setString(3,model.getStudentName());
 

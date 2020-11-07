@@ -33,7 +33,7 @@ public class DateDB {
 
             while (rs.next()) {
                 DateModel dateModel = new DateModel(
-                        rs.getInt("dstudent_id"),
+                        rs.getString("dstudent_id"),
                         rs.getDate("date"),
                         rs.getString("attendance")
                 );
@@ -60,7 +60,7 @@ public class DateDB {
         con = DriverManager.getConnection(url,uname,pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,model.getStudentId());
+        st.setString(1,model.getStudentId());
         st.setDate(2, (Date) model.getDate());
         st.setString(3,model.getAttendance());
 
