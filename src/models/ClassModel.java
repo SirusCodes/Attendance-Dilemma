@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class ClassModel {
     private int classId, noOfLectures;
@@ -97,5 +98,24 @@ public class ClassModel {
                 ", dateTime='" + dateTime + '\'' +
                 ", lab=" + lab +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassModel that = (ClassModel) o;
+        return classId == that.classId &&
+                noOfLectures == that.noOfLectures &&
+                branch.equals(that.branch) &&
+                year.equals(that.year) &&
+                batch.equals(that.batch) &&
+                dateTime.equals(that.dateTime) &&
+                lab.equals(that.lab);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(classId, noOfLectures, branch, year, batch, dateTime, lab);
     }
 }

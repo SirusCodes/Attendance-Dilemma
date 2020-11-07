@@ -83,7 +83,8 @@ public class LandingScreenController implements Initializable {
         Parent parent = fxmlLoader.load();
 
         final AddStudentController controller = fxmlLoader.getController();
-        controller.setClassName(className);
+        final ClassModel model = classModels.get(strClass.indexOf(className));
+        controller.setClassModel(model);
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -98,6 +99,8 @@ public class LandingScreenController implements Initializable {
         DialogPane dialogPane = fxmlLoader.load();
 
         AddClassController controller = fxmlLoader.getController();
+        controller.setClassList(classModels);
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
         dialog.setTitle("Add Class");

@@ -1,5 +1,6 @@
 package gui.addStudent;
 
+import gui.observableModel.StudentRawModel;
 import io.ReadStudentDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import gui.observableModel.StudentRawModel;
+import models.ClassModel;
+import models.StudentModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +26,10 @@ public class AddStudentController {
     public TableView<StudentRawModel> studentTableView;
     @FXML
     private Button backBtn;
-    private String className;
+    private ClassModel classModel = new ClassModel();
+
+    private ArrayList<StudentRawModel> studentRawModels = new ArrayList<>();
+
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -36,12 +41,12 @@ public class AddStudentController {
         stage.show();
     }
 
-    public void setTableView(ArrayList<StudentRawModel> studentRawModels){
+    public void setTableView(ArrayList<StudentRawModel> studentRawModels) {
         TableColumn<StudentRawModel, String> fname = new TableColumn<>("First Name");
         TableColumn<StudentRawModel, String> lname = new TableColumn<>("Last Name");
         TableColumn<StudentRawModel, String> email = new TableColumn<>("Email");
 
-        studentTableView.getColumns().addAll(fname,lname,email);
+        studentTableView.getColumns().addAll(fname, lname, email);
         final ObservableList<StudentRawModel> data = FXCollections.observableArrayList(studentRawModels);
 
         fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
@@ -59,17 +64,16 @@ public class AddStudentController {
 
         final File file = fileChooser.showOpenDialog(null);
         ReadStudentDetails studentDetails = new ReadStudentDetails();
-        ArrayList<StudentRawModel> studentRawModels = new ArrayList<>();
         try {
-           studentRawModels= studentDetails.getStudentData(file);
+            studentRawModels = studentDetails.getStudentData(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-       setTableView(studentRawModels);
+        setTableView(studentRawModels);
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClassModel(ClassModel model) {
+        this.classModel = model;
     }
 
     public void addStudentClick(ActionEvent event) throws IOException {
@@ -84,6 +88,12 @@ public class AddStudentController {
     }
 
     public void saveBtnClicked(ActionEvent event) {
-
+        for (StudentRawModel studentRawModel : studentRawModels) {
+            StudentModel studentModel = new StudentModel(
+                    studentRawModel.getEmail(),
+                    classModel.getClassId(),
+                    studentRawModel.getFname() + " " + studentRawModel.getLname()
+            );
+        }
     }
 }

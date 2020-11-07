@@ -1,10 +1,10 @@
 package models;
 
 public class StudentModel {
-    private int studentId,classId;
-    private String studentName;
+    private int classId;
+    private String studentName,studentId;
 
-    public StudentModel(int studentId, int classId, String studentName) {
+    public StudentModel(String studentId, int classId, String studentName) {
         this.studentId = studentId;
         this.classId = classId;
         this.studentName = studentName;
@@ -13,11 +13,11 @@ public class StudentModel {
     public StudentModel() {
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
