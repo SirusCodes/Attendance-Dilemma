@@ -4,25 +4,27 @@ import java.sql.Date;
 
 public class ClassModel {
     private int classId, noOfLectures;
-    private String branch, year, batch;
+    private String branch, year, batch, subBatch;
     private Date dateTime;
     private Boolean lab;
 
-    public ClassModel(int classId, String branch, String year, String batch, int noOfLectures, Date dateTime, Boolean lab) {
+    public ClassModel(int classId, String branch, String year, String batch, String subBatch, int noOfLectures, Date dateTime, Boolean lab) {
         this.classId = classId;
         this.noOfLectures = noOfLectures;
         this.branch = branch;
         this.year = year;
         this.batch = batch;
+        this.subBatch = subBatch;
         this.dateTime = dateTime;
         this.lab = lab;
     }
 
-    public ClassModel(int noOfLectures, String branch, String year, String batch, Date dateTime, Boolean lab) {
+    public ClassModel(int noOfLectures, String branch, String year, String batch, String subBatch, Date dateTime, Boolean lab) {
         this.noOfLectures = noOfLectures;
         this.branch = branch;
         this.year = year;
         this.batch = batch;
+        this.subBatch = subBatch;
         this.dateTime = dateTime;
         this.lab = lab;
     }
@@ -70,6 +72,14 @@ public class ClassModel {
         this.batch = batch;
     }
 
+    public String getSubBatch() {
+        return subBatch;
+    }
+
+    public void setSubBatch(String subBatch) {
+        this.subBatch = subBatch;
+    }
+
     public Date getDateTime() {
         return dateTime;
     }
@@ -94,7 +104,8 @@ public class ClassModel {
                 ", branch='" + branch + '\'' +
                 ", year='" + year + '\'' +
                 ", batch='" + batch + '\'' +
-                ", dateTime='" + dateTime + '\'' +
+                ", subBatch='" + subBatch + '\'' +
+                ", dateTime=" + dateTime +
                 ", lab=" + lab +
                 '}';
     }
