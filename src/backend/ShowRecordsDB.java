@@ -32,7 +32,7 @@ public class ShowRecordsDB {
 
             while (rs.next()) {
                 ShowRecordsModel showRecordsModel = new ShowRecordsModel(
-                        rs.getString("studentName"),
+                        rs.getString("student_name"),
                         rs.getDate("date"),
                         rs.getString("attendance")
                 );
