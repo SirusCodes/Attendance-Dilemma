@@ -4,11 +4,10 @@ import java.io.Reader;
 import java.util.Date;
 
 public class DateModel {
-    private int studentId;
     private Date date;
-    private String attendance;
+    private String attendance,studentId;
 
-    public DateModel(int studentId, Date date, String attendance) {
+    public DateModel(String studentId, Date date, String attendance) {
         this.studentId = studentId;
         this.date = date;
         this.attendance = attendance;
@@ -17,11 +16,11 @@ public class DateModel {
     public DateModel() {
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

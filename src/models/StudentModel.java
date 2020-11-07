@@ -2,7 +2,7 @@ package models;
 
 public class StudentModel {
     private int classId;
-    private String studentName,studentId;
+    private String studentId,studentName;
 
     public StudentModel(String studentId, int classId, String studentName) {
         this.studentId = studentId;
