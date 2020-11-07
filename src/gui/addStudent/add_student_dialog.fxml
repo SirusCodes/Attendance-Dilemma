@@ -5,19 +5,26 @@
 <?import javafx.scene.layout.*?>
 <DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
             prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.addStudent.AddStudentController">
+            fx:controller="gui.addStudent.AddStudentDialogController">
     <content>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
             <VBox>
-                <Label text="Student Name"/>
-                <TextField promptText="Darshan Rander"/>
+                <Label text="First Name"/>
+                <TextField fx:id="fnameField" promptText="Darshan"/>
+                <VBox.margin>
+                    <Insets left="100.0" right="100.0"/>
+                </VBox.margin>
+            </VBox>
+            <VBox>
+                <Label text="Last Name"/>
+                <TextField fx:id="lnameField" promptText="Rander"/>
                 <VBox.margin>
                     <Insets left="100.0" right="100.0"/>
                 </VBox.margin>
             </VBox>
             <VBox>
                 <Label text="Teams ID"/>
-                <TextField promptText="microsoft@email.com"/>
+                <TextField fx:id="emailField" promptText="microsoft@email.com"/>
                 <VBox.margin>
                     <Insets left="100.0" right="100.0"/>
                 </VBox.margin>

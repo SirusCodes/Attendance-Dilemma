@@ -1,5 +1,6 @@
 package gui.addStudent;
 
+import backend.StudentDB;
 import gui.observableModel.StudentRawModel;
 import io.ReadStudentDetails;
 import javafx.collections.FXCollections;
@@ -7,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,10 +20,13 @@ import models.StudentModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class AddStudentController {
+public class AddStudentController implements Initializable {
     @FXML
     public TableView<StudentRawModel> studentTableView;
     @FXML
@@ -30,6 +35,9 @@ public class AddStudentController {
 
     private ArrayList<StudentRawModel> studentRawModels = new ArrayList<>();
 
+    TableColumn<StudentRawModel, String> fname;
+    TableColumn<StudentRawModel, String> lname;
+    TableColumn<StudentRawModel, String> email;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -42,11 +50,6 @@ public class AddStudentController {
     }
 
     public void setTableView(ArrayList<StudentRawModel> studentRawModels) {
-        TableColumn<StudentRawModel, String> fname = new TableColumn<>("First Name");
-        TableColumn<StudentRawModel, String> lname = new TableColumn<>("Last Name");
-        TableColumn<StudentRawModel, String> email = new TableColumn<>("Email");
-
-        studentTableView.getColumns().addAll(fname, lname, email);
         final ObservableList<StudentRawModel> data = FXCollections.observableArrayList(studentRawModels);
 
         fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
@@ -63,13 +66,15 @@ public class AddStudentController {
         );
 
         final File file = fileChooser.showOpenDialog(null);
-        ReadStudentDetails studentDetails = new ReadStudentDetails();
-        try {
-            studentRawModels = studentDetails.getStudentData(file);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (file != null) {
+            ReadStudentDetails studentDetails = new ReadStudentDetails();
+            try {
+                studentRawModels = studentDetails.getStudentData(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setTableView(studentRawModels);
         }
-        setTableView(studentRawModels);
     }
 
     public void setClassModel(ClassModel model) {
@@ -81,19 +86,42 @@ public class AddStudentController {
         fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
+        StudentRawModel model = new StudentRawModel();
+        AddStudentDialogController controller = fxmlLoader.getController();
+        controller.setFieldBinding(model);
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
         dialog.setTitle("Select details");
         Optional<ButtonType> response = dialog.showAndWait();
+        if (response.isPresent() && response.get() == ButtonType.FINISH) {
+            studentRawModels.add(0, model);
+            setTableView(studentRawModels);
+        }
     }
 
     public void saveBtnClicked(ActionEvent event) {
+        StudentDB db = new StudentDB();
         for (StudentRawModel studentRawModel : studentRawModels) {
             StudentModel studentModel = new StudentModel(
                     studentRawModel.getEmail(),
                     classModel.getClassId(),
                     studentRawModel.getFname() + " " + studentRawModel.getLname()
             );
+            try {
+                db.insert(studentModel);
+            } catch (SQLException | ClassNotFoundException throwables) {
+                throwables.printStackTrace();
+            }
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        fname = new TableColumn<>("First Name");
+        lname = new TableColumn<>("Last Name");
+        email = new TableColumn<>("Email");
+
+        studentTableView.getColumns().addAll(fname, lname, email);
     }
 }

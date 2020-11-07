@@ -4,15 +4,30 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class StudentRawModel {
-    StringProperty email, fname, lname;
+    private StringProperty email, fname, lname;
+
+    public StringProperty emailProperty() {
+        return email;
+    }
+
+    public StringProperty fnameProperty() {
+        return fname;
+    }
+
+    public StringProperty lnameProperty() {
+        return lname;
+    }
 
     public StudentRawModel(String email, String fname, String lname) {
-        this.email =new SimpleStringProperty(email);
+        this.email = new SimpleStringProperty(email);
         this.fname = new SimpleStringProperty(fname);
         this.lname = new SimpleStringProperty(lname);
     }
 
     public StudentRawModel() {
+        this.email = new SimpleStringProperty("");
+        this.fname = new SimpleStringProperty("");
+        this.lname = new SimpleStringProperty("");
     }
 
     public String getEmail() {
@@ -20,7 +35,7 @@ public class StudentRawModel {
     }
 
     public void setEmail(String email) {
-        this.email.set (email);
+        this.email.set(email);
     }
 
     public String getFname() {
@@ -28,7 +43,7 @@ public class StudentRawModel {
     }
 
     public void setFname(String fname) {
-        this.fname.set( fname);
+        this.fname.set(fname);
     }
 
     public String getLname() {
