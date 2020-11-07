@@ -22,7 +22,7 @@ public class ShowRecordsDB {
     public ArrayList<ShowRecordsModel> read() {
         ArrayList<ShowRecordsModel> list = new ArrayList<>();
 
-        String query = "select * from class";
+        String query = "select s.student_name,d.date,d.attendance from student s,date d where d.dstudent_id=s.student_id order by d.date ASC,s.student_id ASC";
 
         try {
             con = DriverManager.getConnection(url, uname, pass);
