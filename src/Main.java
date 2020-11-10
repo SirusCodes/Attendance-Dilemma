@@ -1,26 +1,38 @@
-import backend.ClassDB;
-import backend.StudentDB;
-import backend.DateDB;
-import models.ClassModel;
-import models.StudentModel;
-import models.DateModel;
+import models.StudentRawModel;
+import processes.GetStudentDuration;
 
-import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ClassDB cdb = new ClassDB();
-        ArrayList<ClassModel> clist = cdb.read();
-        clist.forEach(System.out::println);
-        //db.insert(5,"IT","SE","S2",9,"2020-10-12");
-        StudentDB sdb = new StudentDB();
-        ArrayList<StudentModel> slist = sdb.read();
-        slist.forEach(System.out::println);
-        //cdb.insert(77,1,"Darshan");
-        DateDB ddb = new DateDB();
-        ArrayList<DateModel> dlist = ddb.read();
-        dlist.forEach(System.out::println);
-        //ddb.insert(77,"2020-10-10","P";
+
+    public static void main(String[] args) {
+        GetStudentDuration getStudentDuration = new GetStudentDuration();
+         ArrayList<StudentRawModel> studentRawModelArrayList = new ArrayList<>();
+
+        String line;
+        Locale.setDefault(Locale.ENGLISH);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\darshan\\Documents\\college work\\test.csv"));
+            while ((line = br.readLine()) != null) {
+                String[] split = line.split("\"");
+                String dateStr = split[1];
+                String[] student = split[0].split(",");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy, hh:mm:ss a");
+                LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
+                StudentRawModel model = new StudentRawModel(student[0], student[1], date);
+                studentRawModelArrayList.add(model);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        getStudentDuration.getDuration(studentRawModelArrayList);
     }
 }
