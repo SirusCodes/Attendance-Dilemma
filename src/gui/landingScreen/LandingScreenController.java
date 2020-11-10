@@ -4,6 +4,7 @@ import backend.ClassDB;
 import gui.addStudent.AddStudentController;
 import gui.addStudent.SelectClassDialogController;
 import gui.observableModel.GenericObservable;
+import gui.observableModel.RecordDataObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -43,8 +44,10 @@ public class LandingScreenController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
+        final RecordDataObservable recordDataObservable = new RecordDataObservable();
+
         AddRecordDialogController controller = fxmlLoader.getController();
-        controller.setClassComboBox(classList, selectedClass);
+        controller.setClassComboBox(classList, selectedClass, recordDataObservable);
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
@@ -53,7 +56,8 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT)) {
-                System.out.println(selectedClass.getValue().toString());
+                System.out.println(selectedClass.getValue());
+                System.out.println(recordDataObservable);
                 gotoAddRecordScreen();
             }
     }

@@ -1,6 +1,6 @@
 package gui.addStudent;
 
-import gui.observableModel.StudentRawModel;
+import gui.observableModel.StudentRawObservable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -16,7 +16,7 @@ public class AddStudentDialogController implements Initializable {
     @FXML
     TextField emailField;
 
-    public void setFieldBinding(StudentRawModel model) {
+    public void setFieldBinding(StudentRawObservable model) {
         fnameField.textProperty().bindBidirectional(model.fnameProperty());
         lnameField.textProperty().bindBidirectional(model.lnameProperty());
         emailField.textProperty().bindBidirectional(model.emailProperty());

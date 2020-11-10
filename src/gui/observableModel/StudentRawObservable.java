@@ -3,8 +3,8 @@ package gui.observableModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class StudentRawModel {
-    private StringProperty email, fname, lname;
+public class StudentRawObservable {
+    final private StringProperty email, fname, lname;
 
     public StringProperty emailProperty() {
         return email;
@@ -18,13 +18,13 @@ public class StudentRawModel {
         return lname;
     }
 
-    public StudentRawModel(String email, String fname, String lname) {
+    public StudentRawObservable(String email, String fname, String lname) {
         this.email = new SimpleStringProperty(email);
         this.fname = new SimpleStringProperty(fname);
         this.lname = new SimpleStringProperty(lname);
     }
 
-    public StudentRawModel() {
+    public StudentRawObservable() {
         this.email = new SimpleStringProperty("");
         this.fname = new SimpleStringProperty("");
         this.lname = new SimpleStringProperty("");

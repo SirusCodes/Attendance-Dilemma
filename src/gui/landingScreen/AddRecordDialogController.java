@@ -1,13 +1,16 @@
 package gui.landingScreen;
 
 import gui.observableModel.GenericObservable;
+import gui.observableModel.RecordDataObservable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.File;
 import java.net.URL;
@@ -18,6 +21,9 @@ public class AddRecordDialogController implements Initializable {
     public ComboBox<String> addRecordClassComboBox;
     public Label fileAddress;
     public Button selectBtn;
+    public TextField startTime;
+    public TextField endTime;
+    public TextField minDuration;
 
     public void showFileChooser(ActionEvent event) {
         System.out.println("File");
@@ -35,9 +41,12 @@ public class AddRecordDialogController implements Initializable {
         }
     }
 
-    void setClassComboBox(GenericObservable data, StringProperty selected) {
+    void setClassComboBox(GenericObservable data, StringProperty selected, RecordDataObservable rDataObservable) {
         addRecordClassComboBox.itemsProperty().bind(data.listProperty());
         addRecordClassComboBox.valueProperty().bindBidirectional(selected);
+        startTime.textProperty().bindBidirectional(rDataObservable.startTimeProperty());
+        endTime.textProperty().bindBidirectional(rDataObservable.endTimeProperty());
+        minDuration.textProperty().bindBidirectional(rDataObservable.minDurationProperty(), new NumberStringConverter());
     }
 
     @Override

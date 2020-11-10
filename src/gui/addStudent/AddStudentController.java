@@ -1,7 +1,7 @@
 package gui.addStudent;
 
 import backend.StudentDB;
-import gui.observableModel.StudentRawModel;
+import gui.observableModel.StudentRawObservable;
 import io.ReadStudentDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,16 +28,16 @@ import java.util.ResourceBundle;
 
 public class AddStudentController implements Initializable {
     @FXML
-    public TableView<StudentRawModel> studentTableView;
+    public TableView<StudentRawObservable> studentTableView;
     @FXML
     private Button backBtn;
     private ClassModel classModel = new ClassModel();
 
-    private ArrayList<StudentRawModel> studentRawModels = new ArrayList<>();
+    private ArrayList<StudentRawObservable> studentRawObservables = new ArrayList<>();
 
-    TableColumn<StudentRawModel, String> fname;
-    TableColumn<StudentRawModel, String> lname;
-    TableColumn<StudentRawModel, String> email;
+    TableColumn<StudentRawObservable, String> fname;
+    TableColumn<StudentRawObservable, String> lname;
+    TableColumn<StudentRawObservable, String> email;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -49,8 +49,8 @@ public class AddStudentController implements Initializable {
         stage.show();
     }
 
-    public void setTableView(ArrayList<StudentRawModel> studentRawModels) {
-        final ObservableList<StudentRawModel> data = FXCollections.observableArrayList(studentRawModels);
+    public void setTableView(ArrayList<StudentRawObservable> studentRawObservables) {
+        final ObservableList<StudentRawObservable> data = FXCollections.observableArrayList(studentRawObservables);
 
         fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
         lname.setCellValueFactory(new PropertyValueFactory<>("lname"));
@@ -69,11 +69,11 @@ public class AddStudentController implements Initializable {
         if (file != null) {
             ReadStudentDetails studentDetails = new ReadStudentDetails();
             try {
-                studentRawModels = studentDetails.getStudentData(file);
+                studentRawObservables = studentDetails.getStudentData(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            setTableView(studentRawModels);
+            setTableView(studentRawObservables);
         }
     }
 
@@ -86,7 +86,7 @@ public class AddStudentController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
-        StudentRawModel model = new StudentRawModel();
+        StudentRawObservable model = new StudentRawObservable();
         AddStudentDialogController controller = fxmlLoader.getController();
         controller.setFieldBinding(model);
 
@@ -95,18 +95,18 @@ public class AddStudentController implements Initializable {
         dialog.setTitle("Select details");
         Optional<ButtonType> response = dialog.showAndWait();
         if (response.isPresent() && response.get() == ButtonType.FINISH) {
-            studentRawModels.add(0, model);
-            setTableView(studentRawModels);
+            studentRawObservables.add(0, model);
+            setTableView(studentRawObservables);
         }
     }
 
     public void saveBtnClicked(ActionEvent event) {
         StudentDB db = new StudentDB();
-        for (StudentRawModel studentRawModel : studentRawModels) {
+        for (StudentRawObservable studentRawObservable : studentRawObservables) {
             StudentModel studentModel = new StudentModel(
-                    studentRawModel.getEmail(),
+                    studentRawObservable.getEmail(),
                     classModel.getClassId(),
-                    studentRawModel.getFname() + " " + studentRawModel.getLname()
+                    studentRawObservable.getFname() + " " + studentRawObservable.getLname()
             );
             try {
                 db.insert(studentModel);
