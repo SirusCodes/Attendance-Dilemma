@@ -1,7 +1,7 @@
 package gui.landingScreen;
 
 import gui.observableModel.GenericObservable;
-import gui.observableModel.RecordDataObservable;
+import gui.observableModel.RecordDialogObservable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -40,7 +40,7 @@ public class AddRecordDialogController implements Initializable {
         }
     }
 
-    void setClassComboBox(GenericObservable data, StringProperty selected, RecordDataObservable rDataObservable) {
+    void setClassComboBox(GenericObservable data, StringProperty selected, RecordDialogObservable rDataObservable) {
         addRecordClassComboBox.itemsProperty().bind(data.listProperty());
         addRecordClassComboBox.valueProperty().bindBidirectional(selected);
         startTime.textProperty().bindBidirectional(rDataObservable.startTimeProperty());

@@ -1,5 +1,6 @@
 package processes;
 
+import gui.observableModel.RecordTableObservable;
 import models.StudentRawModel;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ import java.util.Objects;
 public class GetStudentDuration {
     HashMap<String, HashMap<String, Object>> map = new HashMap<>();
 
-    public void getDuration(ArrayList<StudentRawModel> list, String startTime, String endTime) {
+    public ArrayList<RecordTableObservable> getDuration(ArrayList<StudentRawModel> list, String startTime, String endTime, double minDuration) {
+        ArrayList<RecordTableObservable> observableArrayList = new ArrayList<>();
         LocalDateTime startDateTime = list.get(0).getDateTime();
         if (startTime != null) {
             String[] start = startTime.split(":");
@@ -44,13 +46,25 @@ public class GetStudentDuration {
         }
 
         int max = ((int) ChronoUnit.MINUTES.between(startDateTime, endDateTime));
+        double minRequiredDuration = (minDuration * max) / 100;
 
         for (Map.Entry<String, HashMap<String, Object>> it : map.entrySet()) {
             int duration = (int) it.getValue().get("duration");
             if (Objects.equals(it.getValue().get("status"), "Joined") || duration > max)
                 duration = max;
 
-            System.out.println("name=" + it.getKey() + " duration=" + duration);
+            RecordTableObservable observable = new RecordTableObservable();
+            observable.setName(it.getKey());
+            observable.setDuration(duration);
+
+            if(duration>=minRequiredDuration)
+                observable.setStatus("P");
+            else
+                observable.setStatus("A");
+
+            observableArrayList.add(observable);
         }
+
+        return observableArrayList;
     }
 }

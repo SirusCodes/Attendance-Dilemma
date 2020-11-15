@@ -1,25 +1,22 @@
 package gui.observableModel;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
-public class RecordDataObservable {
+public class RecordDialogObservable {
     final StringProperty startTime, endTime, fileAddress;
-    final IntegerProperty minDuration;
+    final DoubleProperty minDuration;
 
-    public RecordDataObservable(String startTime, String endTime, StringProperty fileAddress, int minDuration) {
+    public RecordDialogObservable(String startTime, String endTime, StringProperty fileAddress, int minDuration) {
         this.startTime = new SimpleStringProperty(startTime);
         this.endTime = new SimpleStringProperty(endTime);
         this.fileAddress = fileAddress;
-        this.minDuration = new SimpleIntegerProperty(minDuration);
+        this.minDuration = new SimpleDoubleProperty(minDuration);
     }
 
-    public RecordDataObservable() {
+    public RecordDialogObservable() {
         this.startTime = new SimpleStringProperty();
         this.endTime = new SimpleStringProperty();
-        this.minDuration = new SimpleIntegerProperty(75);
+        this.minDuration = new SimpleDoubleProperty(75);
         this.fileAddress = new SimpleStringProperty("Select the file location --->");
     }
 
@@ -47,11 +44,11 @@ public class RecordDataObservable {
         return endTime;
     }
 
-    public int getMinDuration() {
+    public double getMinDuration() {
         return minDuration.get();
     }
 
-    public IntegerProperty minDurationProperty() {
+    public DoubleProperty minDurationProperty() {
         return minDuration;
     }
 

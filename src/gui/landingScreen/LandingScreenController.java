@@ -5,7 +5,7 @@ import gui.addRecord.AddRecordScreenController;
 import gui.addStudent.AddStudentController;
 import gui.addStudent.SelectClassDialogController;
 import gui.observableModel.GenericObservable;
-import gui.observableModel.RecordDataObservable;
+import gui.observableModel.RecordDialogObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -45,7 +45,7 @@ public class LandingScreenController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
-        final RecordDataObservable recordDataObservable = new RecordDataObservable();
+        final RecordDialogObservable recordDataObservable = new RecordDialogObservable();
 
         AddRecordDialogController controller = fxmlLoader.getController();
         controller.setClassComboBox(classList, selectedClass, recordDataObservable);
@@ -57,7 +57,7 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT)) {
-                gotoAddRecordScreen(recordDataObservable.getFileAddress());
+                gotoAddRecordScreen(recordDataObservable.getFileAddress(), recordDataObservable.getMinDuration());
             }
     }
 
@@ -114,14 +114,14 @@ public class LandingScreenController implements Initializable {
                 controller.getClassDetails();
     }
 
-    public void gotoAddRecordScreen(String file) throws IOException {
+    public void gotoAddRecordScreen(String file, double minDuration) throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addRecord/add_record_screen.fxml"));
         Parent parent = fxmlLoader.load();
 
         AddRecordScreenController controller = fxmlLoader.getController();
-        controller.setFileAddress(file);
+        controller.setStudentList(file, minDuration);
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);

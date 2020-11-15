@@ -1,27 +1,40 @@
 package gui.addRecord;
 
+import gui.observableModel.RecordTableObservable;
 import io.ReadRecord;
-import io.ReadStudentDetails;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.StudentRawModel;
 import processes.GetStudentDuration;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class AddRecordScreenController {
+public class AddRecordScreenController implements Initializable {
     @FXML
     private Button backBtn;
 
-    private String fileAddress;
+    @FXML
+    private TableView<RecordTableObservable> tableView;
+
+    private TableColumn<RecordTableObservable, String> name, email, status;
+    private TableColumn<RecordTableObservable, Integer> duration;
+
+    ArrayList<RecordTableObservable> recordObservables = new ArrayList<>();
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -43,12 +56,34 @@ public class AddRecordScreenController {
         fileChooser.showSaveDialog(null);
     }
 
-    public void setFileAddress(String fileAddress){
-        this.fileAddress = fileAddress;
+    public void setStudentList(String fileAddress, double minDuration) {
+        recordObservables.clear();
         ReadRecord readRecord = new ReadRecord();
         GetStudentDuration getStudentDuration = new GetStudentDuration();
         ArrayList<StudentRawModel> list;
         list = readRecord.readFile(fileAddress);
-        getStudentDuration.getDuration(list,"11:00","12:00");
+        recordObservables = getStudentDuration.getDuration(list, "11:00", "12:00", minDuration);
+        setTableView();
+    }
+
+    public void setTableView() {
+        final ObservableList<RecordTableObservable> data = FXCollections.observableArrayList(recordObservables);
+
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+        tableView.setItems(data);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        name = new TableColumn<>("Name");
+        email = new TableColumn<>("Email");
+        duration = new TableColumn<>("Duration");
+        status = new TableColumn<>("Status");
+
+        tableView.getColumns().addAll(name, email, duration, status);
     }
 }
