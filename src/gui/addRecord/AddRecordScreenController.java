@@ -1,5 +1,6 @@
 package gui.addRecord;
 
+import backend.StudentDB;
 import gui.observableModel.RecordTableObservable;
 import io.ReadRecord;
 import javafx.collections.FXCollections;
@@ -16,12 +17,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.StudentModel;
 import models.StudentRawModel;
 import processes.GetStudentDuration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddRecordScreenController implements Initializable {
@@ -63,6 +66,36 @@ public class AddRecordScreenController implements Initializable {
         ArrayList<StudentRawModel> list;
         list = readRecord.readFile(fileAddress);
         recordObservables = getStudentDuration.getDuration(list, "11:00", "12:00", minDuration);
+        analysisListData();
+    }
+
+    private void analysisListData() {
+        StudentDB studentDB = new StudentDB();
+        ArrayList<StudentModel> studentList = studentDB.read();
+        ArrayList<RecordTableObservable> absentStudents = new ArrayList<>();
+
+        for (StudentModel model : studentList) {
+            final String name = model.getStudentName();
+            boolean found = false;
+            for (RecordTableObservable recordObservable : recordObservables) {
+                if (Objects.equals(recordObservable.getName(), name)) {
+                    found = true;
+                    recordObservable.setEmail(model.getStudentId());
+                }
+            }
+
+            if (!found) {
+                RecordTableObservable modelObservable = new RecordTableObservable(
+                        model.getStudentId(),
+                        model.getStudentName(),
+                        "A",
+                        0
+                );
+                absentStudents.add(modelObservable);
+            }
+        }
+
+        recordObservables.addAll(absentStudents);
         setTableView();
     }
 
