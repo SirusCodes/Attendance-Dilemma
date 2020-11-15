@@ -1,5 +1,6 @@
+package io;
+
 import models.StudentRawModel;
-import processes.GetStudentDuration;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,17 +10,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Main {
-
-    public static void main(String[] args) {
-        GetStudentDuration getStudentDuration = new GetStudentDuration();
-         ArrayList<StudentRawModel> studentRawModelArrayList = new ArrayList<>();
-
+public class ReadRecord {
+    public ArrayList<StudentRawModel> readFile(String fileAddress) {
+        ArrayList<StudentRawModel> studentRawModelArrayList = new ArrayList<>();
         String line;
         Locale.setDefault(Locale.ENGLISH);
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\darshan\\Documents\\college work\\test.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(fileAddress));
             while ((line = br.readLine()) != null) {
                 String[] split = line.split("\"");
                 String dateStr = split[1];
@@ -32,7 +30,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        getStudentDuration.getDuration(studentRawModelArrayList);
+        return studentRawModelArrayList;
     }
 }

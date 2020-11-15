@@ -26,11 +26,10 @@ public class AddRecordDialogController implements Initializable {
     public TextField minDuration;
 
     public void showFileChooser(ActionEvent event) {
-        System.out.println("File");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"),
-                new FileChooser.ExtensionFilter("Excel Files (*.xlsx, *.xls)", "*.xlsx", "*.xls")
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
         );
 
         final File file = fileChooser.showOpenDialog(null);
@@ -47,6 +46,7 @@ public class AddRecordDialogController implements Initializable {
         startTime.textProperty().bindBidirectional(rDataObservable.startTimeProperty());
         endTime.textProperty().bindBidirectional(rDataObservable.endTimeProperty());
         minDuration.textProperty().bindBidirectional(rDataObservable.minDurationProperty(), new NumberStringConverter());
+        fileAddress.textProperty().bindBidirectional(rDataObservable.fileAddressProperty());
     }
 
     @Override

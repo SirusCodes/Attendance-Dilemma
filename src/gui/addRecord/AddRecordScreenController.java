@@ -1,5 +1,7 @@
 package gui.addRecord;
 
+import io.ReadRecord;
+import io.ReadStudentDetails;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +10,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.StudentRawModel;
+import processes.GetStudentDuration;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AddRecordScreenController {
     @FXML
     private Button backBtn;
+
+    private String fileAddress;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -33,5 +41,14 @@ public class AddRecordScreenController {
         );
 
         fileChooser.showSaveDialog(null);
+    }
+
+    public void setFileAddress(String fileAddress){
+        this.fileAddress = fileAddress;
+        ReadRecord readRecord = new ReadRecord();
+        GetStudentDuration getStudentDuration = new GetStudentDuration();
+        ArrayList<StudentRawModel> list;
+        list = readRecord.readFile(fileAddress);
+        getStudentDuration.getDuration(list,"11:00","12:00");
     }
 }

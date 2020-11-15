@@ -7,12 +7,20 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class GetStudentDuration {
     HashMap<String, HashMap<String, Object>> map = new HashMap<>();
 
-    public void getDuration(ArrayList<StudentRawModel> list) {
-        int maxDuration = 0;
+    public void getDuration(ArrayList<StudentRawModel> list, String startTime, String endTime) {
+        LocalDateTime startDateTime = list.get(0).getDateTime();
+        if (startTime != null) {
+            String[] start = startTime.split(":");
+            startDateTime = startDateTime.withHour(Integer.parseInt(start[0])).withMinute(Integer.parseInt(start[1]));
+        }
+        String[] end = endTime.split(":");
+        LocalDateTime endDateTime = list.get(0).getDateTime().withHour(Integer.parseInt(end[0])).withMinute(Integer.parseInt(end[1]));
+
         for (StudentRawModel model : list) {
             HashMap<String, Object> data = new HashMap<>();
             if (map.containsKey(model.getName())) {
@@ -21,22 +29,27 @@ public class GetStudentDuration {
                     LocalDateTime date = (LocalDateTime) map.get(model.getName()).get("join");
                     duration += ChronoUnit.MINUTES.between(date, model.getDateTime());
                     data.put("duration", duration);
-                    maxDuration = Math.max(duration, maxDuration);
+                    data.put("status", "Left");
                 } else {
                     data.put("duration", duration);
                     data.put("join", model.getDateTime());
+                    data.put("status", "Joined");
                 }
             } else {
                 data.put("duration", 0);
                 data.put("join", model.getDateTime());
+                data.put("status", "Joined");
             }
             map.put(model.getName(), data);
         }
+
+        int max = ((int) ChronoUnit.MINUTES.between(startDateTime, endDateTime));
+
         for (Map.Entry<String, HashMap<String, Object>> it : map.entrySet()) {
             int duration = (int) it.getValue().get("duration");
-            if ((int) it.getValue().get("duration") == 0) {
-                duration = maxDuration;
-            }
+            if (Objects.equals(it.getValue().get("status"), "Joined") || duration > max)
+                duration = max;
+
             System.out.println("name=" + it.getKey() + " duration=" + duration);
         }
     }

@@ -1,6 +1,7 @@
 package gui.landingScreen;
 
 import backend.ClassDB;
+import gui.addRecord.AddRecordScreenController;
 import gui.addStudent.AddStudentController;
 import gui.addStudent.SelectClassDialogController;
 import gui.observableModel.GenericObservable;
@@ -56,9 +57,7 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT)) {
-                System.out.println(selectedClass.getValue());
-                System.out.println(recordDataObservable);
-                gotoAddRecordScreen();
+                gotoAddRecordScreen(recordDataObservable.getFileAddress());
             }
     }
 
@@ -115,9 +114,14 @@ public class LandingScreenController implements Initializable {
                 controller.getClassDetails();
     }
 
-    public void gotoAddRecordScreen() throws IOException {
+    public void gotoAddRecordScreen(String file) throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
-        Parent parent = FXMLLoader.load(getClass().getResource("../addRecord/add_record_screen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../addRecord/add_record_screen.fxml"));
+        Parent parent = fxmlLoader.load();
+
+        AddRecordScreenController controller = fxmlLoader.getController();
+        controller.setFileAddress(file);
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);

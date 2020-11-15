@@ -123,5 +123,21 @@ public class AddStudentController implements Initializable {
         email = new TableColumn<>("Email");
 
         studentTableView.getColumns().addAll(fname, lname, email);
+
+        ArrayList<StudentRawObservable> list = getStudentFromDatabase();
+        setTableView(list);
+    }
+
+    private ArrayList<StudentRawObservable> getStudentFromDatabase() {
+        StudentDB db = new StudentDB();
+        ArrayList<StudentModel> studentModels = db.read();
+        ArrayList<StudentRawObservable> list = new ArrayList<>();
+
+        for (StudentModel model : studentModels) {
+            String[] name = model.getStudentName().split(" ");
+            list.add(new StudentRawObservable(model.getStudentId(), name[0], name[1]));
+        }
+
+        return list;
     }
 }
