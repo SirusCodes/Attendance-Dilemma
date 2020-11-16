@@ -14,11 +14,11 @@
             <HBox alignment="CENTER" spacing="20.0">
                 <HBox alignment="BASELINE_CENTER" spacing="10">
                     <Label text="From"/>
-                    <DatePicker/>
+                    <DatePicker fx:id="startDate"/>
                 </HBox>
                 <HBox alignment="BASELINE_CENTER" spacing="10">
                     <Label text="To"/>
-                    <DatePicker/>
+                    <DatePicker fx:id="endDate"/>
                 </HBox>
             </HBox>
         </VBox>
