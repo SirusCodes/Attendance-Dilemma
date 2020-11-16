@@ -1,11 +1,13 @@
 package gui.landingScreen;
 
 import backend.ClassDB;
+import gui.addClassDialog.AddClassDialogController;
 import gui.addRecord.AddRecordScreenController;
+import gui.addRecordDialog.AddRecordDialogController;
 import gui.addStudent.AddStudentController;
-import gui.addStudent.SelectClassDialogController;
-import gui.observableModel.GenericObservable;
-import gui.observableModel.RecordDialogObservable;
+import gui.selectClassDialog.SelectClassDialogController;
+import observableModels.GenericObservable;
+import observableModels.RecordDialogObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -42,7 +44,7 @@ public class LandingScreenController implements Initializable {
 
     public void addRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("add_record_dialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../addRecordDialog/add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
         final RecordDialogObservable recordDataObservable = new RecordDialogObservable();
@@ -63,7 +65,7 @@ public class LandingScreenController implements Initializable {
 
     public void addStudentClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("../addStudent/select_class.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../selectClassDialog/select_class.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
         SelectClassDialogController controller = fxmlLoader.getController();
@@ -98,10 +100,10 @@ public class LandingScreenController implements Initializable {
     @FXML
     public void addClassClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("add_class_dialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../addClassDialog/add_class_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
-        AddClassController controller = fxmlLoader.getController();
+        AddClassDialogController controller = fxmlLoader.getController();
         controller.setClassList(classModels);
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -131,7 +133,7 @@ public class LandingScreenController implements Initializable {
 
     public void showRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("show_record_dialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../showRecordDialog/show_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();

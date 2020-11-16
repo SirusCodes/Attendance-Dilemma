@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
             prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.landingScreen.AddRecordDialogController">
+            fx:controller="gui.addRecordDialog.AddRecordDialogController">
     <content>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20">
             <ComboBox fx:id="addRecordClassComboBox" prefHeight="26.0" prefWidth="240.0" promptText="Select class"/>

@@ -1,4 +1,4 @@
-package gui.observableModel;
+package observableModels;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

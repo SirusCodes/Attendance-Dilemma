@@ -1,4 +1,4 @@
-package gui.landingScreen;
+package gui.addClassDialog;
 
 import backend.ClassDB;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AddClassController {
+public class AddClassDialogController {
     @FXML
     private ComboBox<String> classComboBox, yearComboBox, branchComboBox;
 

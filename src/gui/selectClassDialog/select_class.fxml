@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
             prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.addStudent.SelectClassDialogController">
+            fx:controller="gui.selectClassDialog.SelectClassDialogController">
     <content>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50">
             <ComboBox fx:id="classComboBoxAddStudent" prefHeight="26.0" prefWidth="240.0" promptText="Select class"/>

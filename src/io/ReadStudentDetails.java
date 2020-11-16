@@ -1,6 +1,6 @@
 package io;
 
-import gui.observableModel.StudentRawObservable;
+import observableModels.StudentRawObservable;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;

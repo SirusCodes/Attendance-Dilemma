@@ -1,6 +1,6 @@
 package processes;
 
-import gui.observableModel.RecordTableObservable;
+import observableModels.RecordTableObservable;
 import models.StudentRawModel;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
-package gui.addStudent;
+package gui.selectClassDialog;
 
-import gui.observableModel.GenericObservable;
+import observableModels.GenericObservable;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

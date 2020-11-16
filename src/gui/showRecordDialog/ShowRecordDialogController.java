@@ -1,4 +1,4 @@
-package gui.landingScreen;
+package gui.showRecordDialog;
 
 import backend.ClassDB;
 import javafx.collections.FXCollections;

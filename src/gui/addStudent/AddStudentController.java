@@ -1,7 +1,8 @@
 package gui.addStudent;
 
 import backend.StudentDB;
-import gui.observableModel.StudentRawObservable;
+import gui.addStudentDialog.AddStudentDialogController;
+import observableModels.StudentRawObservable;
 import io.ReadStudentDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -2,7 +2,7 @@ package gui.addRecord;
 
 import backend.DateDB;
 import backend.StudentDB;
-import gui.observableModel.RecordTableObservable;
+import observableModels.RecordTableObservable;
 import io.ReadRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
