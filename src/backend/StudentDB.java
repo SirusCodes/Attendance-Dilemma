@@ -23,7 +23,7 @@ public class StudentDB {
     public ArrayList<StudentModel> read() {
         ArrayList<StudentModel> list = new ArrayList<>();
 
-        String query = "select * from student";
+        String query = "select student_id,sclass_id,student_name from student s,class c where s.sclass_id=c.class_id;";
 
         try {
             con = DriverManager.getConnection(url, uname, pass);
