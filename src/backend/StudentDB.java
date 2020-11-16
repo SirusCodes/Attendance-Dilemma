@@ -20,10 +20,10 @@ public class StudentDB {
     final private String uname = Auth.UNAME;
     final private String pass = Auth.PASSWORD;
 
-    public ArrayList<StudentModel> read() {
+    public ArrayList<StudentModel> read(int classID) {
         ArrayList<StudentModel> list = new ArrayList<>();
 
-        String query = "select student_id,sclass_id,student_name from student s,class c where s.sclass_id=c.class_id;";
+        String query = "select student_id,sclass_id,student_name from student where s.sclass_id="+classID;
 
         try {
             con = DriverManager.getConnection(url, uname, pass);
