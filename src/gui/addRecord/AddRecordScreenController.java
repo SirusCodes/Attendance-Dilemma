@@ -1,5 +1,6 @@
 package gui.addRecord;
 
+import backend.DateDB;
 import backend.StudentDB;
 import gui.observableModel.RecordTableObservable;
 import io.ReadRecord;
@@ -17,12 +18,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.DateModel;
 import models.StudentModel;
 import models.StudentRawModel;
 import processes.GetStudentDuration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -36,6 +40,7 @@ public class AddRecordScreenController implements Initializable {
 
     private TableColumn<RecordTableObservable, String> name, email, status;
     private TableColumn<RecordTableObservable, Integer> duration;
+    ArrayList<StudentRawModel> list;
 
     ArrayList<RecordTableObservable> recordObservables = new ArrayList<>();
 
@@ -50,10 +55,23 @@ public class AddRecordScreenController implements Initializable {
     }
 
     public void saveBtnClicked(ActionEvent event) {
-        System.out.println("File");
+        DateDB db = new DateDB();
+
+        for (RecordTableObservable observable : recordObservables) {
+            try {
+                db.insert(new DateModel(
+                        observable.getEmail(),
+                        Date.valueOf(list.get(0).getDateTime().toLocalDate()),
+                        observable.getStatus()
+                ));
+            } catch (SQLException | ClassNotFoundException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx")
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
         );
 
         fileChooser.showSaveDialog(null);
@@ -63,7 +81,6 @@ public class AddRecordScreenController implements Initializable {
         recordObservables.clear();
         ReadRecord readRecord = new ReadRecord();
         GetStudentDuration getStudentDuration = new GetStudentDuration();
-        ArrayList<StudentRawModel> list;
         list = readRecord.readFile(fileAddress);
         recordObservables = getStudentDuration.getDuration(list, "11:00", "12:00", minDuration);
         analysisListData();

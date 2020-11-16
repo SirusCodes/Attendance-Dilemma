@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class RecordTableObservable {
     private final StringProperty email, name, status;
-    private final  IntegerProperty duration;
+    private final IntegerProperty duration;
 
     public RecordTableObservable(String email, String name, String status, Integer duration) {
         this.email = new SimpleStringProperty(email);
