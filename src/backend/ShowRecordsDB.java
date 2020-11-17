@@ -21,7 +21,8 @@ public class ShowRecordsDB {
     public ArrayList<ShowRecordsModel> read(Date date1, Date date2, int classID) {
         ArrayList<ShowRecordsModel> list = new ArrayList<>();
 
-        String query = "select s.student_name,d.date,d.attendance from student s,date d where d.date between " + date1 + " and " + date2 + " and d.dstudent_id=s.student_id and s.sclass_id=" + classID + " order by d.date ASC,s.student_id ASC";
+        String query = "select s.student_name,d.date,d.attendance from student s,date d where d.date between '" + date1 + "' and '"
+                + date2 + "' and d.dstudent_id=s.student_id and s.sclass_id=" + classID + " order by d.date ASC,s.student_id ASC";
 
         try {
             con = DriverManager.getConnection(url, uname, pass);

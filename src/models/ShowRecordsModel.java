@@ -6,13 +6,13 @@ public class ShowRecordsModel {
     private String studentName, attendance;
     private Date date;
 
-    public ShowRecordsModel(String studentName, String attendance, Date date) {
-        this.studentName = studentName;
-        this.attendance = attendance;
-        this.date = date;
+    public ShowRecordsModel() {
     }
 
     public ShowRecordsModel(String studentName, Date date, String attendance) {
+        this.studentName = studentName;
+        this.attendance = attendance;
+        this.date = date;
     }
 
     public String getStudentName() {

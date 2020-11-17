@@ -1,6 +1,9 @@
 package gui.showRecord;
 
 import backend.ShowRecordsDB;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import models.ShowRecordsModel;
-import observableModels.RecordObservable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,11 +27,11 @@ import java.util.*;
 public class ShowRecordController implements Initializable {
     public Button backBtn;
 
-    private final ArrayList<RecordObservable> observables = new ArrayList<>();
-    public TableView<RecordObservable> tableView;
-    private TableColumn<RecordObservable, String> name;
-    private TableColumn<RecordObservable, Double> percentage;
-    private List<TableColumn<RecordObservable, LocalDate>> attendances;
+    private ObservableList<ObservableList<Object>> observables = FXCollections.observableList(new ArrayList<>());
+    public TableView tableView;
+    private TableColumn<ObservableList, String> name;
+    Set<LocalDate> dateSet = new HashSet<>();
+    HashMap<String, ArrayList<String>> map = new HashMap<>();
 
 
     public void backBtnClicked(ActionEvent event) throws IOException {
@@ -50,29 +52,39 @@ public class ShowRecordController implements Initializable {
         ArrayList<ShowRecordsModel> recordList = db.read(Date.valueOf(startDate), Date.valueOf(endDate), classID);
         observables.clear();
 
-        HashMap<String, ArrayList<HashMap<LocalDate, String>>> map = new HashMap<>();
         for (ShowRecordsModel showRecordsModel : recordList) {
-            ArrayList<HashMap<LocalDate, String>> pData = map.getOrDefault(showRecordsModel.getStudentName(), new ArrayList<>());
-            HashMap<LocalDate, String> data = new HashMap<>();
-            data.put(showRecordsModel.getDate().toLocalDate(), showRecordsModel.getAttendance());
-            pData.add(data);
-            map.put(showRecordsModel.getStudentName(), pData);
+            ArrayList<String> pData = map.getOrDefault(showRecordsModel.getStudentName(), new ArrayList<>());
+            LocalDate date = showRecordsModel.getDate().toLocalDate();
+            dateSet.add(date);
+            pData.add(showRecordsModel.getAttendance());
+            map.putIfAbsent(showRecordsModel.getStudentName(), pData);
         }
 
-        map.forEach((key, value) -> System.out.println(key + " " + value));
-//        setTableView();
+        setTableView();
     }
 
     public void setTableView() {
         name = new TableColumn<>("Name");
-        percentage = new TableColumn<>("Percentage");
+        name.setCellValueFactory(params -> new SimpleStringProperty(params.getValue().get(0).toString()));
+        tableView.getColumns().add(name);
 
-        final ObservableList<RecordObservable> data = FXCollections.observableArrayList(observables);
+        Object[] list = dateSet.toArray();
+        for (int i = 0; i < list.length; i++) {
+            TableColumn<ObservableList, String> col = new TableColumn<>(list[i].toString());
+            final int I = i + 1;
+            col.setCellValueFactory(params -> new SimpleStringProperty(params.getValue().get(I).toString()));
+            tableView.getColumns().add(col);
+        }
 
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        percentage.setCellValueFactory(new PropertyValueFactory<>("percentage"));
+        for (Map.Entry<String, ArrayList<String>> entry : map.entrySet()) {
+            ObservableList<Object> row = FXCollections.observableArrayList();
+            row.add(entry.getKey());
+            row.addAll(entry.getValue());
+            observables.add(row);
+            System.out.println(row.toString());
+        }
 
-        tableView.setItems(data);
+        tableView.setItems(observables);
     }
 
     @Override
