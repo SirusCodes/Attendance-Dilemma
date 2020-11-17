@@ -130,8 +130,8 @@ public class LandingScreenController implements Initializable {
         Parent parent = fxmlLoader.load();
 
         AddRecordScreenController controller = fxmlLoader.getController();
-        controller.setStudentList(file, minDuration);
         controller.setClassId(getClassID());
+        controller.setStudentList(file, minDuration);
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
