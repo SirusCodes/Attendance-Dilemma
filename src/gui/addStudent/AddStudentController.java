@@ -131,7 +131,7 @@ public class AddStudentController implements Initializable {
 
     private ArrayList<StudentRawObservable> getStudentFromDatabase() {
         StudentDB db = new StudentDB();
-        ArrayList<StudentModel> studentModels = db.read();
+        ArrayList<StudentModel> studentModels = db.read(classModel.getClassId());
         ArrayList<StudentRawObservable> list = new ArrayList<>();
 
         for (StudentModel model : studentModels) {

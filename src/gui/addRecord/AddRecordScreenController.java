@@ -41,6 +41,7 @@ public class AddRecordScreenController implements Initializable {
     private TableColumn<RecordTableObservable, String> name, email, status;
     private TableColumn<RecordTableObservable, Integer> duration;
     ArrayList<StudentRawModel> list;
+    private Integer classId;
 
     ArrayList<RecordTableObservable> recordObservables = new ArrayList<>();
 
@@ -52,6 +53,10 @@ public class AddRecordScreenController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Attendance Dilemma");
         stage.show();
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 
     public void saveBtnClicked(ActionEvent event) {
@@ -88,7 +93,7 @@ public class AddRecordScreenController implements Initializable {
 
     private void analysisListData() {
         StudentDB studentDB = new StudentDB();
-        ArrayList<StudentModel> studentList = studentDB.read();
+        ArrayList<StudentModel> studentList = studentDB.read(classId);
         ArrayList<RecordTableObservable> absentStudents = new ArrayList<>();
 
         for (StudentModel model : studentList) {

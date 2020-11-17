@@ -118,8 +118,11 @@ public class LandingScreenController implements Initializable {
 
         final Optional<ButtonType> response = dialog.showAndWait();
         if (response.isPresent())
-            if (response.get() == ButtonType.FINISH)
+            if (response.get() == ButtonType.FINISH) {
                 controller.getClassDetails();
+                setClassDetails();
+                classList = new GenericObservable(strClass, classIds);
+            }
     }
 
     public void gotoAddRecordScreen(String file, double minDuration) throws IOException {
@@ -130,6 +133,7 @@ public class LandingScreenController implements Initializable {
 
         AddRecordScreenController controller = fxmlLoader.getController();
         controller.setStudentList(file, minDuration);
+        controller.setClassId(getClassID());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -180,12 +184,16 @@ public class LandingScreenController implements Initializable {
         Parent parent = fxmlLoader.load();
 
         DefaulterListController controller = fxmlLoader.getController();
-        controller.setData(classIds.get(strClass.indexOf(selectedClass.get())), startDate.get(), endDate.get());
+        controller.setData(getClassID(), startDate.get(), endDate.get());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
         stage.setTitle("Defaulter List");
         stage.show();
+    }
+
+    private Integer getClassID() {
+        return classIds.get(strClass.indexOf(selectedClass.get()));
     }
 
     public void gotoShowRecordScreen() {

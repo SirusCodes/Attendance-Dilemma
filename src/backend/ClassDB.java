@@ -82,10 +82,10 @@ public class ClassDB {
         st.setString(2,model.getBranch());
         st.setString(3,model.getYear());
         st.setString(4,model.getBatch());
-        st.setString(4,model.getSubBatch());
-        st.setInt(5,model.getNoOfLectures());
-        st.setDate(6,model.getDateTime());
-        st.setBoolean(7,model.getLab());
+        st.setString(5,model.getSubBatch());
+        st.setInt(6,model.getNoOfLectures());
+        st.setDate(7,model.getDateTime());
+        st.setBoolean(8,model.getLab());
 
         st.executeUpdate();
 

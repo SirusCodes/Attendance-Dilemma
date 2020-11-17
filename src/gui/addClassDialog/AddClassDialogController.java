@@ -1,19 +1,28 @@
 package gui.addClassDialog;
 
 import backend.ClassDB;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 import models.ClassModel;
 
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class AddClassDialogController {
+public class AddClassDialogController implements Initializable {
     @FXML
-    private ComboBox<String> classComboBox, yearComboBox, branchComboBox;
+    private VBox subBatchVBox;
+    @FXML
+    private ComboBox<String> classComboBox, yearComboBox, branchComboBox, subBatch;
+
 
     @FXML
     private CheckBox checkBoxLab;
@@ -31,6 +40,7 @@ public class AddClassDialogController {
                 branchComboBox.getValue(),
                 yearComboBox.getValue(),
                 classComboBox.getValue(),
+                subBatch.getValue(),
                 Date.valueOf(LocalDate.now()),
                 checkBoxLab.isSelected()
         );
@@ -43,5 +53,15 @@ public class AddClassDialogController {
             }
 
         return false;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        checkBoxLab.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                subBatchVBox.setVisible(t1);
+            }
+        });
     }
 }
