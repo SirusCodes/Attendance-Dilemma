@@ -36,17 +36,15 @@ import java.util.ResourceBundle;
 
 public class LandingScreenController implements Initializable {
 
-    @FXML
-    private Button addRecordBtn;
-
-    private ArrayList<ClassModel> classModels = new ArrayList<>();
     private final ArrayList<String> strClass = new ArrayList<>();
     private final ArrayList<Integer> classIds = new ArrayList<>();
-    private GenericObservable classList;
     private final StringProperty selectedClass = new SimpleStringProperty();
-
-    private ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
-    private ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
+    @FXML
+    private Button addRecordBtn;
+    private ArrayList<ClassModel> classModels = new ArrayList<>();
+    private GenericObservable classList;
+    private final ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
 
     public void addRecordClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();

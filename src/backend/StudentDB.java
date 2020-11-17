@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class StudentDB {
 
+    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
+    final private String uname = Auth.UNAME;
+    final private String pass = Auth.PASSWORD;
+    private Connection con;
     public StudentDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -15,15 +19,10 @@ public class StudentDB {
         }
     }
 
-    private Connection con;
-    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
-    final private String uname = Auth.UNAME;
-    final private String pass = Auth.PASSWORD;
-
     public ArrayList<StudentModel> read(int classID) {
         ArrayList<StudentModel> list = new ArrayList<>();
 
-        String query = "select student_id,sclass_id,student_name from student where s.sclass_id="+classID;
+        String query = "select student_id,sclass_id,student_name from student where s.sclass_id=" + classID;
 
         try {
             con = DriverManager.getConnection(url, uname, pass);
@@ -57,12 +56,12 @@ public class StudentDB {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        con = DriverManager.getConnection(url,uname,pass);
+        con = DriverManager.getConnection(url, uname, pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setString(1,model.getStudentId());
-        st.setInt(2,model.getClassId());
-        st.setString(3,model.getStudentName());
+        st.setString(1, model.getStudentId());
+        st.setInt(2, model.getClassId());
+        st.setString(3, model.getStudentName());
 
         st.executeUpdate();
 

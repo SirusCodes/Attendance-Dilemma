@@ -2,7 +2,6 @@ package gui.addRecord;
 
 import backend.DateDB;
 import backend.StudentDB;
-import observableModels.RecordTableObservable;
 import io.ReadRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +20,7 @@ import javafx.stage.Stage;
 import models.DateModel;
 import models.StudentModel;
 import models.StudentRawModel;
+import observableModels.RecordTableObservable;
 import processes.GetStudentDuration;
 
 import java.io.IOException;
@@ -32,18 +32,15 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddRecordScreenController implements Initializable {
+    ArrayList<StudentRawModel> list;
+    ArrayList<RecordTableObservable> recordObservables = new ArrayList<>();
     @FXML
     private Button backBtn;
-
     @FXML
     private TableView<RecordTableObservable> tableView;
-
     private TableColumn<RecordTableObservable, String> name, email, status;
     private TableColumn<RecordTableObservable, Integer> duration;
-    ArrayList<StudentRawModel> list;
     private Integer classId;
-
-    ArrayList<RecordTableObservable> recordObservables = new ArrayList<>();
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();

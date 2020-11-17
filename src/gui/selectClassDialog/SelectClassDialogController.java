@@ -1,10 +1,10 @@
 package gui.selectClassDialog;
 
-import observableModels.GenericObservable;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import observableModels.GenericObservable;
 
 import java.net.URL;
 import java.util.ResourceBundle;

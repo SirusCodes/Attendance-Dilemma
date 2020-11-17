@@ -6,6 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ClassDB {
+    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
+    final private String uname = Auth.UNAME;
+    final private String pass = Auth.PASSWORD;
+    private Connection con;
     public ClassDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -13,11 +17,6 @@ public class ClassDB {
             e.printStackTrace();
         }
     }
-
-    private Connection con;
-    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
-    final private String uname = Auth.UNAME;
-    final private String pass = Auth.PASSWORD;
 
     public ArrayList<ClassModel> read() {
         ArrayList<ClassModel> list = new ArrayList<>();
@@ -53,11 +52,11 @@ public class ClassDB {
     }
 
     public void update(ClassModel model) throws ClassNotFoundException, SQLException {
-        String query = "update class set no_of_lecture="+model.getNoOfLectures()+" last_datetime_added="+model.getDateTime()+" where class_id="+model.getClassId();
+        String query = "update class set no_of_lecture=" + model.getNoOfLectures() + " last_datetime_added=" + model.getDateTime() + " where class_id=" + model.getClassId();
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        con = DriverManager.getConnection(url,uname,pass);
+        con = DriverManager.getConnection(url, uname, pass);
 
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -75,17 +74,17 @@ public class ClassDB {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        con = DriverManager.getConnection(url,uname,pass);
+        con = DriverManager.getConnection(url, uname, pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1,model.getClassId());
-        st.setString(2,model.getBranch());
-        st.setString(3,model.getYear());
-        st.setString(4,model.getBatch());
-        st.setString(5,model.getSubBatch());
-        st.setInt(6,model.getNoOfLectures());
-        st.setDate(7,model.getDateTime());
-        st.setBoolean(8,model.getLab());
+        st.setInt(1, model.getClassId());
+        st.setString(2, model.getBranch());
+        st.setString(3, model.getYear());
+        st.setString(4, model.getBatch());
+        st.setString(5, model.getSubBatch());
+        st.setInt(6, model.getNoOfLectures());
+        st.setDate(7, model.getDateTime());
+        st.setBoolean(8, model.getLab());
 
         st.executeUpdate();
 

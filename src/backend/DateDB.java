@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class DateDB {
 
+    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
+    final private String uname = Auth.UNAME;
+    final private String pass = Auth.PASSWORD;
+    private Connection con;
     public DateDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -14,11 +18,6 @@ public class DateDB {
             e.printStackTrace();
         }
     }
-
-    private Connection con;
-    final private String url = "jdbc:mysql://localhost:3306/attendancedilemma";
-    final private String uname = Auth.UNAME;
-    final private String pass = Auth.PASSWORD;
 
     public ArrayList<DateModel> read() {
         ArrayList<DateModel> list = new ArrayList<>();
@@ -57,12 +56,12 @@ public class DateDB {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        con = DriverManager.getConnection(url,uname,pass);
+        con = DriverManager.getConnection(url, uname, pass);
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setString(1,model.getStudentId());
-        st.setDate(2, (Date) model.getDate());
-        st.setString(3,model.getAttendance());
+        st.setString(1, model.getStudentId());
+        st.setDate(2, model.getDate());
+        st.setString(3, model.getAttendance());
 
         st.executeUpdate();
 

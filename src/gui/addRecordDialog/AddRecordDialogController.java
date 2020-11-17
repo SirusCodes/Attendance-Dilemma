@@ -1,7 +1,5 @@
 package gui.addRecordDialog;
 
-import observableModels.GenericObservable;
-import observableModels.RecordDialogObservable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -11,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.util.converter.NumberStringConverter;
+import observableModels.GenericObservable;
+import observableModels.RecordDialogObservable;
 
 import java.io.File;
 import java.net.URL;

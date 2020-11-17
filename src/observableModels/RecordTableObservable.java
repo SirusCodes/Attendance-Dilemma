@@ -27,47 +27,47 @@ public class RecordTableObservable {
         return email.get();
     }
 
-    public StringProperty emailProperty() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public StringProperty emailProperty() {
+        return email;
     }
 
     public String getName() {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
     }
 
     public String getStatus() {
         return status.get();
     }
 
-    public StringProperty statusProperty() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status.set(status);
+    }
+
+    public StringProperty statusProperty() {
+        return status;
     }
 
     public int getDuration() {
         return duration.get();
     }
 
-    public IntegerProperty durationProperty() {
-        return duration;
-    }
-
     public void setDuration(int duration) {
         this.duration.set(duration);
+    }
+
+    public IntegerProperty durationProperty() {
+        return duration;
     }
 }

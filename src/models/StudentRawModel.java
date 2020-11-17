@@ -3,8 +3,9 @@ package models;
 import java.time.LocalDateTime;
 
 public class StudentRawModel {
-    private String name, status;
-    private LocalDateTime dateTime;
+    private final String name;
+    private final String status;
+    private final LocalDateTime dateTime;
 
     public StudentRawModel(String name, String status, LocalDateTime dateTime) {
         this.name = name;

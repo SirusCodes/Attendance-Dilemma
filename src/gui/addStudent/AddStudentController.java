@@ -2,7 +2,6 @@ package gui.addStudent;
 
 import backend.StudentDB;
 import gui.addStudentDialog.AddStudentDialogController;
-import observableModels.StudentRawObservable;
 import io.ReadStudentDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.ClassModel;
 import models.StudentModel;
+import observableModels.StudentRawObservable;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,15 +30,13 @@ import java.util.ResourceBundle;
 public class AddStudentController implements Initializable {
     @FXML
     public TableView<StudentRawObservable> studentTableView;
-    @FXML
-    private Button backBtn;
-    private ClassModel classModel = new ClassModel();
-
-    private ArrayList<StudentRawObservable> studentRawObservables = new ArrayList<>();
-
     TableColumn<StudentRawObservable, String> fname;
     TableColumn<StudentRawObservable, String> lname;
     TableColumn<StudentRawObservable, String> email;
+    @FXML
+    private Button backBtn;
+    private ClassModel classModel = new ClassModel();
+    private ArrayList<StudentRawObservable> studentRawObservables = new ArrayList<>();
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();

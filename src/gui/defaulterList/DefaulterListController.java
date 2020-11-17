@@ -30,7 +30,7 @@ public class DefaulterListController implements Initializable {
     private TableColumn<DefaulterObservable, String> name;
     private TableColumn<DefaulterObservable, Double> percentage;
 
-    private ArrayList<DefaulterObservable> observables = new ArrayList<>();
+    private final ArrayList<DefaulterObservable> observables = new ArrayList<>();
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();

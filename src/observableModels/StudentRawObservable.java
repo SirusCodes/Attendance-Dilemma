@@ -6,18 +6,6 @@ import javafx.beans.property.StringProperty;
 public class StudentRawObservable {
     final private StringProperty email, fname, lname;
 
-    public StringProperty emailProperty() {
-        return email;
-    }
-
-    public StringProperty fnameProperty() {
-        return fname;
-    }
-
-    public StringProperty lnameProperty() {
-        return lname;
-    }
-
     public StudentRawObservable(String email, String fname, String lname) {
         this.email = new SimpleStringProperty(email);
         this.fname = new SimpleStringProperty(fname);
@@ -28,6 +16,18 @@ public class StudentRawObservable {
         this.email = new SimpleStringProperty("");
         this.fname = new SimpleStringProperty("");
         this.lname = new SimpleStringProperty("");
+    }
+
+    public StringProperty emailProperty() {
+        return email;
+    }
+
+    public StringProperty fnameProperty() {
+        return fname;
+    }
+
+    public StringProperty lnameProperty() {
+        return lname;
     }
 
     public String getEmail() {

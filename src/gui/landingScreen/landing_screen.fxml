@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.landingScreen.LandingScreenController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="540.0" prefWidth="960.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.landingScreen.LandingScreenController">
     <VBox alignment="CENTER">
         <VBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0">
             <Label text="Attendance Dilemma">

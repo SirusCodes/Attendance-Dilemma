@@ -1,9 +1,9 @@
 package gui.addStudentDialog;
 
-import observableModels.StudentRawObservable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import observableModels.StudentRawObservable;
 
 import java.net.URL;
 import java.util.ResourceBundle;

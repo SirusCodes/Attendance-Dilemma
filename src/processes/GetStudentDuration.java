@@ -1,7 +1,7 @@
 package processes;
 
-import observableModels.RecordTableObservable;
 import models.StudentRawModel;
+import observableModels.RecordTableObservable;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -57,7 +57,7 @@ public class GetStudentDuration {
             observable.setName(it.getKey());
             observable.setDuration(duration);
 
-            if(duration>=minRequiredDuration)
+            if (duration >= minRequiredDuration)
                 observable.setStatus("P");
             else
                 observable.setStatus("A");

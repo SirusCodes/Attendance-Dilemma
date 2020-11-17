@@ -29,23 +29,23 @@ public class DefaulterObservable {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
     }
 
     public double getPercentage() {
         return percentage.get();
     }
 
-    public DoubleProperty percentageProperty() {
-        return percentage;
-    }
-
     public void setPercentage(double percentage) {
         this.percentage.set(percentage);
+    }
+
+    public DoubleProperty percentageProperty() {
+        return percentage;
     }
 }

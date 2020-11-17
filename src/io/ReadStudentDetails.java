@@ -15,7 +15,7 @@ public class ReadStudentDetails {
         Sheet sheet = workbook.getSheetAt(0);
         DataFormatter dataFormatter = new DataFormatter();
         for (Row row : sheet) {
-            StudentRawObservable model =new StudentRawObservable(
+            StudentRawObservable model = new StudentRawObservable(
                     dataFormatter.formatCellValue(row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)),
                     dataFormatter.formatCellValue(row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK)),
                     dataFormatter.formatCellValue(row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK))

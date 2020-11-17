@@ -7,8 +7,13 @@ import javafx.collections.FXCollections;
 import java.util.ArrayList;
 
 public class GenericObservable {
-    private ListProperty<Integer> id;
-    private ListProperty<String> list;
+    private final ListProperty<Integer> id;
+    private final ListProperty<String> list;
+
+    public GenericObservable(ArrayList<String> list, ArrayList<Integer> id) {
+        this.list = new SimpleListProperty<>(FXCollections.observableList(list));
+        this.id = new SimpleListProperty(FXCollections.observableList(id));
+    }
 
     public ListProperty<Integer> idProperty() {
         return id;
@@ -16,11 +21,6 @@ public class GenericObservable {
 
     public ListProperty<String> listProperty() {
         return list;
-    }
-
-    public GenericObservable(ArrayList<String> list, ArrayList<Integer> id) {
-        this.list = new SimpleListProperty<>(FXCollections.observableList(list));
-        this.id = new SimpleListProperty(FXCollections.observableList(id));
     }
 
     public ArrayList<String> getList() {
