@@ -35,6 +35,7 @@ public class ClassDB {
                         rs.getString("branch"),
                         rs.getString("year"),
                         rs.getString("batch"),
+                        rs.getString("sub_batch"),
                         rs.getInt("no_of_lecture"),
                         rs.getDate("last_datetime_added"),
                         rs.getBoolean("lab")
@@ -70,7 +71,7 @@ public class ClassDB {
         //int classId,noOfLectures;
         //String branch,year,batch,dateTime;
 
-        String query = "insert into class values (?,?,?,?,?,?,?)";
+        String query = "insert into class values (?,?,?,?,?,?,?,?)";
 
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -81,6 +82,7 @@ public class ClassDB {
         st.setString(2,model.getBranch());
         st.setString(3,model.getYear());
         st.setString(4,model.getBatch());
+        st.setString(4,model.getSubBatch());
         st.setInt(5,model.getNoOfLectures());
         st.setDate(6,model.getDateTime());
         st.setBoolean(7,model.getLab());
