@@ -35,8 +35,9 @@ public class AddStudentController implements Initializable {
     TableColumn<StudentRawObservable, String> email;
     @FXML
     private Button backBtn;
-    private ClassModel classModel = new ClassModel();
     private ArrayList<StudentRawObservable> studentRawObservables = new ArrayList<>();
+    private final ArrayList<StudentRawObservable> studentListDB = new ArrayList<>();
+    private Integer classID;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -48,7 +49,7 @@ public class AddStudentController implements Initializable {
         stage.show();
     }
 
-    public void setTableView(ArrayList<StudentRawObservable> studentRawObservables) {
+    public void setTableView() {
         final ObservableList<StudentRawObservable> data = FXCollections.observableArrayList(studentRawObservables);
 
         fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
@@ -72,17 +73,19 @@ public class AddStudentController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            setTableView(studentRawObservables);
+            setTableView();
         }
     }
 
-    public void setClassModel(ClassModel model) {
-        this.classModel = model;
+    public void setClassID(Integer classID) {
+        this.classID = classID;
+        getStudentFromDatabase();
+        setTableView();
     }
 
     public void addStudentClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_dialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../addStudentDialog/add_student_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
         StudentRawObservable model = new StudentRawObservable();
@@ -95,24 +98,28 @@ public class AddStudentController implements Initializable {
         Optional<ButtonType> response = dialog.showAndWait();
         if (response.isPresent() && response.get() == ButtonType.FINISH) {
             studentRawObservables.add(0, model);
-            setTableView(studentRawObservables);
+            setTableView();
         }
     }
 
     public void saveBtnClicked(ActionEvent event) {
         StudentDB db = new StudentDB();
         for (StudentRawObservable studentRawObservable : studentRawObservables) {
-            StudentModel studentModel = new StudentModel(
-                    studentRawObservable.getEmail(),
-                    classModel.getClassId(),
-                    studentRawObservable.getFname() + " " + studentRawObservable.getLname()
-            );
-            try {
-                db.insert(studentModel);
-            } catch (SQLException | ClassNotFoundException throwables) {
-                throwables.printStackTrace();
+            System.out.println(studentListDB.contains(studentRawObservable));
+            if (!studentListDB.contains(studentRawObservable)) {
+                StudentModel studentModel = new StudentModel(
+                        studentRawObservable.getEmail(),
+                        classID,
+                        studentRawObservable.getFname() + " " + studentRawObservable.getLname()
+                );
+                try {
+                    db.insert(studentModel);
+                } catch (SQLException | ClassNotFoundException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         }
+        getStudentFromDatabase();
     }
 
     @Override
@@ -122,21 +129,17 @@ public class AddStudentController implements Initializable {
         email = new TableColumn<>("Email");
 
         studentTableView.getColumns().addAll(fname, lname, email);
-
-        ArrayList<StudentRawObservable> list = getStudentFromDatabase();
-        setTableView(list);
     }
 
-    private ArrayList<StudentRawObservable> getStudentFromDatabase() {
+    private void getStudentFromDatabase() {
         StudentDB db = new StudentDB();
-        ArrayList<StudentModel> studentModels = db.read(classModel.getClassId());
-        ArrayList<StudentRawObservable> list = new ArrayList<>();
+        ArrayList<StudentModel> studentModels = db.read(classID);
+        System.out.println(classID);
 
         for (StudentModel model : studentModels) {
             String[] name = model.getStudentName().split(" ");
-            list.add(new StudentRawObservable(model.getStudentId(), name[0], name[1]));
+            studentListDB.add(new StudentRawObservable(model.getStudentId(), name[0], name[1]));
         }
-
-        return list;
+        studentRawObservables = new ArrayList<>(studentListDB);
     }
 }

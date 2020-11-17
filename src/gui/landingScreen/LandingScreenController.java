@@ -7,6 +7,7 @@ import gui.addRecordDialog.AddRecordDialogController;
 import gui.addStudent.AddStudentController;
 import gui.defaulterList.DefaulterListController;
 import gui.selectClassDialog.SelectClassDialogController;
+import gui.showRecord.ShowRecordController;
 import gui.showRecordDialog.ShowRecordDialogController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -82,18 +83,17 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT))
-                gotoAddStudentScreen(selectedClass.get());
+                gotoAddStudentScreen();
     }
 
-    private void gotoAddStudentScreen(String className) throws IOException {
+    private void gotoAddStudentScreen() throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addStudent/add_student_screen.fxml"));
         Parent parent = fxmlLoader.load();
 
         final AddStudentController controller = fxmlLoader.getController();
-        final ClassModel model = classModels.get(strClass.indexOf(className));
-        controller.setClassModel(model);
+        controller.setClassID(getClassID());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -190,18 +190,19 @@ public class LandingScreenController implements Initializable {
         stage.show();
     }
 
-    private Integer getClassID() {
-        return classIds.get(strClass.indexOf(selectedClass.get()));
-    }
+    public void gotoShowRecordScreen() throws IOException {
+        Stage stage = (Stage) addRecordBtn.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../showRecord/show_record.fxml"));
+        Parent parent = fxmlLoader.load();
 
-    public void gotoShowRecordScreen() {
-        System.out.println("NextScreen");
-    }
+        ShowRecordController controller = fxmlLoader.getController();
+        controller.setData(getClassID(), startDate.get(), endDate.get());
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setClassDetails();
-        classList = new GenericObservable(strClass, classIds);
+        Scene scene = new Scene(parent, 960, 540);
+        stage.setScene(scene);
+        stage.setTitle("Defaulter List");
+        stage.show();
     }
 
     private void setClassDetails() {
@@ -216,5 +217,13 @@ public class LandingScreenController implements Initializable {
         }
     }
 
+    private Integer getClassID() {
+        return classIds.get(strClass.indexOf(selectedClass.get()));
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setClassDetails();
+        classList = new GenericObservable(strClass, classIds);
+    }
 }

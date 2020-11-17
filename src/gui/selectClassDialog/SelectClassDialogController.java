@@ -11,11 +11,11 @@ import java.util.ResourceBundle;
 
 public class SelectClassDialogController implements Initializable {
     @FXML
-    private ComboBox<String> classComboBoxAddStudent;
+    private ComboBox<String> selectClassComboBox;
 
     public void setClassComboBox(GenericObservable data, StringProperty selected) {
-        classComboBoxAddStudent.itemsProperty().bind(data.listProperty());
-        classComboBoxAddStudent.valueProperty().bindBidirectional(selected);
+        selectClassComboBox.itemsProperty().bind(data.listProperty());
+        selectClassComboBox.valueProperty().bindBidirectional(selected);
     }
 
     @Override

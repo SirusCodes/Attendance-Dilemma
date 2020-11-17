@@ -3,6 +3,8 @@ package observableModels;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class StudentRawObservable {
     final private StringProperty email, fname, lname;
 
@@ -61,5 +63,20 @@ public class StudentRawObservable {
                 ", fname='" + getFname() + '\'' +
                 ", lname='" + getLname() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentRawObservable that = (StudentRawObservable) o;
+        return email.get().equals(that.email.get()) &&
+                fname.get().equals(that.fname.get()) &&
+                lname.get().equals(that.lname.get());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email.get(), fname.get(), lname.get());
     }
 }
