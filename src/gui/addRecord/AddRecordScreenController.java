@@ -1,5 +1,6 @@
 package gui.addRecord;
 
+import backend.ClassDB;
 import backend.DateDB;
 import backend.StudentDB;
 import io.ReadRecord;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.ClassModel;
 import models.DateModel;
 import models.StudentModel;
 import models.StudentRawModel;
@@ -45,6 +47,7 @@ public class AddRecordScreenController implements Initializable {
     private TableColumn<RecordTableObservable, Integer> duration;
     private Integer classId;
     String className;
+    private ClassModel classModel;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -60,38 +63,62 @@ public class AddRecordScreenController implements Initializable {
         this.classId = classId;
     }
 
+    public void setClassModel(ClassModel model) {
+        this.classModel = model;
+    }
+
     public void saveBtnClicked(ActionEvent event) {
+        Date date = Date.valueOf(list.get(0).getDateTime().toLocalDate());
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
+        );
+        String name = "Record-" + className + "-" + date;
+        fileChooser.setInitialFileName(name + ".xls");
+        final File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            ArrayList<String> header = new ArrayList<>();
+            header.add("Name");
+            header.add("Status");
+            header.add("Duration");
+
+            ArrayList<ArrayList<String>> data = new ArrayList<>(Collections.singleton(header));
+            recordObservables.stream().map(model -> Collections.singleton(model.toArrayList())).forEach(data::addAll);
+
+            WriteToExcel write = new WriteToExcel();
+            write.write(data, file, name);
+            if (date.compareTo(classModel.getDateTime()) > 0)
+                saveToDB(date);
+        }
+    }
+
+    private void saveToDB(Date date) {
         DateDB db = new DateDB();
+        ClassDB classDB = new ClassDB();
+        classModel.setDateTime(date);
+        int numOfLect = classModel.getNoOfLectures() + 1;
+        classModel.setNoOfLectures(numOfLect);
+
+        System.out.println(classModel);
+        try {
+            classDB.update(classModel);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
         for (RecordTableObservable observable : recordObservables) {
             try {
                 db.insert(new DateModel(
                         observable.getEmail(),
-                        Date.valueOf(list.get(0).getDateTime().toLocalDate()),
+                        date,
                         observable.getStatus()
                 ));
             } catch (SQLException | ClassNotFoundException throwables) {
                 throwables.printStackTrace();
             }
         }
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
-        );
-        String name = "Record-" + className + "-" + list.get(0).getDateTime().toLocalDate();
-        fileChooser.setInitialFileName(name + ".xls");
-        final File file = fileChooser.showSaveDialog(null);
-
-        ArrayList<String> header = new ArrayList<>();
-        header.add("Name");
-        header.add("Percentage");
-
-        ArrayList<ArrayList<String>> data = new ArrayList<>(Collections.singleton(header));
-        recordObservables.stream().map(model -> Collections.singleton(model.toArrayList())).forEach(data::addAll);
-
-        WriteToExcel write = new WriteToExcel();
-        write.write(data, file, name);
     }
 
     public void setStudentList(String fileAddress, double minDuration, String start, String end, String className) {

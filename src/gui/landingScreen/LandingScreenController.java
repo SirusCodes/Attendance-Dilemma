@@ -131,6 +131,7 @@ public class LandingScreenController implements Initializable {
 
         AddRecordScreenController controller = fxmlLoader.getController();
         controller.setClassId(getClassID());
+        controller.setClassModel(getClassModel());
         controller.setStudentList(file, minDuration, start, end, getClassName());
 
         Scene scene = new Scene(parent, 960, 540);
@@ -210,7 +211,7 @@ public class LandingScreenController implements Initializable {
         classModels = db.read();
         for (ClassModel model : classModels) {
             String name = model.getLab() ?
-                    String.format("%s%s%s %s", model.getYear(), model.getBranch(), model.getBatch(), "Lab") :
+                    String.format("%s%s%s%s %s", model.getYear(), model.getBranch(), model.getBatch(), model.getSubBatch(), "Lab") :
                     String.format("%s%s%s", model.getYear(), model.getBranch(), model.getBatch());
             strClass.add(name);
             classIds.add(model.getClassId());
@@ -219,6 +220,10 @@ public class LandingScreenController implements Initializable {
 
     private Integer getClassID() {
         return classIds.get(strClass.indexOf(getClassName()));
+    }
+
+    private ClassModel getClassModel() {
+        return classModels.get(strClass.indexOf(getClassName()));
     }
 
     private String getClassName() {

@@ -52,14 +52,14 @@ public class ClassDB {
     }
 
     public void update(ClassModel model) throws ClassNotFoundException, SQLException {
-        String query = "update class set no_of_lecture=" + model.getNoOfLectures() + " last_datetime_added=" + model.getDateTime() + " where class_id=" + model.getClassId();
+        String query = "update class set no_of_lecture=" + model.getNoOfLectures() + ", last_datetime_added='" + model.getDateTime() + "' where class_id=" + model.getClassId();
 
         Class.forName("com.mysql.jdbc.Driver");
 
         con = DriverManager.getConnection(url, uname, pass);
 
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query);
+        st.executeUpdate(query);
 
         st.close();
         con.close();
