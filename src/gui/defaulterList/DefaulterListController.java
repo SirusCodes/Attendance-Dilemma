@@ -1,6 +1,7 @@
 package gui.defaulterList;
 
 import backend.DefaulterDB;
+import io.WriteToExcel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,15 +13,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.DefaulterModel;
 import observableModels.DefaulterObservable;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class DefaulterListController implements Initializable {
@@ -31,6 +35,8 @@ public class DefaulterListController implements Initializable {
     private TableColumn<DefaulterObservable, Double> percentage;
 
     private final ArrayList<DefaulterObservable> observables = new ArrayList<>();
+    ArrayList<DefaulterModel> defaulterList = new ArrayList<>();
+    String className;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -43,12 +49,35 @@ public class DefaulterListController implements Initializable {
     }
 
     public void saveBtnClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
+        );
+        fileChooser.setInitialFileName("Defaulter-list-" + className + ".xls");
+        final File file = fileChooser.showSaveDialog(null);
+
+        ArrayList<String> header = new ArrayList<>();
+        header.add("Name");
+        header.add("Percentage");
+
+        ArrayList<ArrayList<String>> data = new ArrayList<>(Collections.singleton(header));
+        for (DefaulterModel model : defaulterList) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(model.getName());
+            list.add(String.valueOf(model.getPercentage()));
+            data.add(list);
+        }
+
+        WriteToExcel write = new WriteToExcel();
+        write.write(data, file, "Defaulter-list" + className);
     }
 
-    public void setData(int classID, LocalDate startDate, LocalDate endDate) {
+    public void setData(int classID, String className, LocalDate startDate, LocalDate endDate) {
         DefaulterDB db = new DefaulterDB();
-        ArrayList<DefaulterModel> defaulterList = db.defaulterlist(classID, Date.valueOf(startDate), Date.valueOf(endDate));
+        defaulterList = db.defaulterlist(classID, Date.valueOf(startDate), Date.valueOf(endDate));
         observables.clear();
+
+        this.className = className;
 
         defaulterList.forEach(model -> {
             observables.add(new DefaulterObservable(model));

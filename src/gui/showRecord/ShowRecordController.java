@@ -1,9 +1,8 @@
 package gui.showRecord;
 
 import backend.ShowRecordsDB;
-import javafx.beans.Observable;
+import io.WriteToExcel;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,15 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import models.ShowRecordsModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShowRecordController implements Initializable {
     public Button backBtn;
@@ -32,6 +33,7 @@ public class ShowRecordController implements Initializable {
     private TableColumn<ObservableList, String> name;
     Set<LocalDate> dateSet = new HashSet<>();
     HashMap<String, ArrayList<String>> map = new HashMap<>();
+    private String className;
 
 
     public void backBtnClicked(ActionEvent event) throws IOException {
@@ -45,9 +47,30 @@ public class ShowRecordController implements Initializable {
     }
 
     public void saveBtnClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
+        );
+        fileChooser.setInitialFileName("Record-list-" + className + ".xls");
+        final File file = fileChooser.showSaveDialog(null);
+
+        ArrayList<String> header = new ArrayList<>();
+        header.add("Name");
+        dateSet.forEach(date -> header.add(date.toString()));
+
+        ArrayList<ArrayList<String>> data = new ArrayList<>(Collections.singleton(header));
+        observables.forEach(model -> {
+            ArrayList<String> list = model.stream().map(Object::toString).collect(Collectors.toCollection(ArrayList::new));
+            data.add(list);
+        });
+
+        WriteToExcel write = new WriteToExcel();
+        write.write(data, file, "Record-list" + className);
     }
 
-    public void setData(int classID, LocalDate startDate, LocalDate endDate) {
+    public void setData(int classID, String className, LocalDate startDate, LocalDate endDate) {
+        this.className = className;
+
         ShowRecordsDB db = new ShowRecordsDB();
         ArrayList<ShowRecordsModel> recordList = db.read(Date.valueOf(startDate), Date.valueOf(endDate), classID);
         observables.clear();

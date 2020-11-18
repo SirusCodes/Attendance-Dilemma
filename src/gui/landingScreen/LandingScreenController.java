@@ -52,10 +52,10 @@ public class LandingScreenController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("../addRecordDialog/add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
 
-        final RecordDialogObservable recordDataObservable = new RecordDialogObservable();
+        final RecordDialogObservable recordObs = new RecordDialogObservable();
 
         AddRecordDialogController controller = fxmlLoader.getController();
-        controller.setClassComboBox(classList, selectedClass, recordDataObservable);
+        controller.setClassComboBox(classList, selectedClass, recordObs);
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
@@ -64,7 +64,7 @@ public class LandingScreenController implements Initializable {
 
         if (response.isPresent())
             if (response.get().equals(ButtonType.NEXT)) {
-                gotoAddRecordScreen(recordDataObservable.getFileAddress(), recordDataObservable.getMinDuration());
+                gotoAddRecordScreen(recordObs.getFileAddress(), recordObs.getMinDuration(), recordObs.getStartTime(), recordObs.getEndTime());
             }
     }
 
@@ -123,7 +123,7 @@ public class LandingScreenController implements Initializable {
             }
     }
 
-    public void gotoAddRecordScreen(String file, double minDuration) throws IOException {
+    public void gotoAddRecordScreen(String file, double minDuration, String start, String end) throws IOException {
         Stage stage = (Stage) addRecordBtn.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addRecord/add_record_screen.fxml"));
@@ -131,7 +131,7 @@ public class LandingScreenController implements Initializable {
 
         AddRecordScreenController controller = fxmlLoader.getController();
         controller.setClassId(getClassID());
-        controller.setStudentList(file, minDuration);
+        controller.setStudentList(file, minDuration, start, end, getClassName());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -182,7 +182,7 @@ public class LandingScreenController implements Initializable {
         Parent parent = fxmlLoader.load();
 
         DefaulterListController controller = fxmlLoader.getController();
-        controller.setData(getClassID(), startDate.get(), endDate.get());
+        controller.setData(getClassID(), getClassName(), startDate.get(), endDate.get());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -197,7 +197,7 @@ public class LandingScreenController implements Initializable {
         Parent parent = fxmlLoader.load();
 
         ShowRecordController controller = fxmlLoader.getController();
-        controller.setData(getClassID(), startDate.get(), endDate.get());
+        controller.setData(getClassID(), getClassName(), startDate.get(), endDate.get());
 
         Scene scene = new Scene(parent, 960, 540);
         stage.setScene(scene);
@@ -218,7 +218,11 @@ public class LandingScreenController implements Initializable {
     }
 
     private Integer getClassID() {
-        return classIds.get(strClass.indexOf(selectedClass.get()));
+        return classIds.get(strClass.indexOf(getClassName()));
+    }
+
+    private String getClassName() {
+        return selectedClass.get();
     }
 
     @Override

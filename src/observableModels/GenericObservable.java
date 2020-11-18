@@ -12,7 +12,7 @@ public class GenericObservable {
 
     public GenericObservable(ArrayList<String> list, ArrayList<Integer> id) {
         this.list = new SimpleListProperty<>(FXCollections.observableList(list));
-        this.id = new SimpleListProperty(FXCollections.observableList(id));
+        this.id = new SimpleListProperty<>(FXCollections.observableList(id));
     }
 
     public ListProperty<Integer> idProperty() {

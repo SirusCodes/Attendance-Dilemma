@@ -3,6 +3,7 @@ package gui.addRecord;
 import backend.DateDB;
 import backend.StudentDB;
 import io.ReadRecord;
+import io.WriteToExcel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,11 +24,13 @@ import models.StudentRawModel;
 import observableModels.RecordTableObservable;
 import processes.GetStudentDuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -41,6 +44,7 @@ public class AddRecordScreenController implements Initializable {
     private TableColumn<RecordTableObservable, String> name, email, status;
     private TableColumn<RecordTableObservable, Integer> duration;
     private Integer classId;
+    String className;
 
     public void backBtnClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage) backBtn.getScene().getWindow();
@@ -75,16 +79,28 @@ public class AddRecordScreenController implements Initializable {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Excel Files (*.xls)", "*.xls")
         );
+        String name = "Record-" + className + "-" + list.get(0).getDateTime().toLocalDate();
+        fileChooser.setInitialFileName(name + ".xls");
+        final File file = fileChooser.showSaveDialog(null);
 
-        fileChooser.showSaveDialog(null);
+        ArrayList<String> header = new ArrayList<>();
+        header.add("Name");
+        header.add("Percentage");
+
+        ArrayList<ArrayList<String>> data = new ArrayList<>(Collections.singleton(header));
+        recordObservables.stream().map(model -> Collections.singleton(model.toArrayList())).forEach(data::addAll);
+
+        WriteToExcel write = new WriteToExcel();
+        write.write(data, file, name);
     }
 
-    public void setStudentList(String fileAddress, double minDuration) {
+    public void setStudentList(String fileAddress, double minDuration, String start, String end, String className) {
+        this.className = className;
         recordObservables.clear();
         ReadRecord readRecord = new ReadRecord();
         GetStudentDuration getStudentDuration = new GetStudentDuration();
         list = readRecord.readFile(fileAddress);
-        recordObservables = getStudentDuration.getDuration(list, "11:00", "12:00", minDuration);
+        recordObservables = getStudentDuration.getDuration(list, start, end, minDuration);
         analysisListData();
     }
 

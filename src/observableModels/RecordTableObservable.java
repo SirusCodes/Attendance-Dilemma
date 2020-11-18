@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
+
 public class RecordTableObservable {
     private final StringProperty email, name, status;
     private final IntegerProperty duration;
@@ -69,5 +71,13 @@ public class RecordTableObservable {
 
     public IntegerProperty durationProperty() {
         return duration;
+    }
+
+    public ArrayList<String> toArrayList() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(getName());
+        arrayList.add(getStatus());
+        arrayList.add(String.valueOf(getDuration()));
+        return arrayList;
     }
 }
