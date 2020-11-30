@@ -44,6 +44,7 @@ public class AddStudentController implements Initializable {
         Parent parent = FXMLLoader.load(getClass().getResource("../landingScreen/landing_screen.fxml"));
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Attendance Dilemma");
         stage.show();
@@ -87,6 +88,7 @@ public class AddStudentController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addStudentDialog/add_student_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         StudentRawObservable model = new StudentRawObservable();
         AddStudentDialogController controller = fxmlLoader.getController();

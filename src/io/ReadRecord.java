@@ -31,12 +31,12 @@ public class ReadRecord {
 
             List<String[]> data = csv.readAll();
 
-//            Locale.setDefault(Locale.ENGLISH);
+            Locale.setDefault(Locale.US);
             for (String[] row : data) {
-                System.out.println(row[2]);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy, hh:mm:ss a", Locale.US);
-                String dateStr = row[2];
-                LocalDateTime date = LocalDateTime.parse(dateStr.trim(), formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy, hh:mm:ss a", Locale.US);
+                String dateStr = row[2].trim();
+                System.out.println("|"+dateStr);
+                LocalDateTime date = LocalDateTime.parse(dateStr, formatter);
                 StudentRawModel model = new StudentRawModel(row[0], row[1], date);
                 studentRawModelArrayList.add(model);
             }

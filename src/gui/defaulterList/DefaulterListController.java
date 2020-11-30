@@ -43,6 +43,7 @@ public class DefaulterListController implements Initializable {
         Parent parent = FXMLLoader.load(getClass().getResource("../landingScreen/landing_screen.fxml"));
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Attendance Dilemma");
         stage.show();

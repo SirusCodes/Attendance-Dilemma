@@ -1,0 +1,23 @@
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.button:pressed {
+    -fx-background-color: #3d3d3d;
+    -fx-text-fill: white;
+}
+
+.button:hover{
+    -fx-background-color: #303030;
+    -fx-text-fill: white;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url('./fonts/Poppins-Regular.ttf');
+}
+
+.label {
+    -fx-font-family: 'Poppins';
+}

@@ -51,6 +51,7 @@ public class LandingScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addRecordDialog/add_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         final RecordDialogObservable recordObs = new RecordDialogObservable();
 
@@ -72,6 +73,7 @@ public class LandingScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../selectClassDialog/select_class.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         SelectClassDialogController controller = fxmlLoader.getController();
         controller.setClassComboBox(classList, selectedClass);
@@ -96,6 +98,7 @@ public class LandingScreenController implements Initializable {
         controller.setClassID(getClassID());
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Add Record");
         stage.show();
@@ -106,6 +109,7 @@ public class LandingScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../addClassDialog/add_class_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         AddClassDialogController controller = fxmlLoader.getController();
         controller.setClassList(classModels);
@@ -135,6 +139,7 @@ public class LandingScreenController implements Initializable {
         controller.setStudentList(file, minDuration, start, end, getClassName());
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Add Record");
         stage.show();
@@ -144,6 +149,7 @@ public class LandingScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../showRecordDialog/show_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         ShowRecordDialogController controller = fxmlLoader.getController();
         controller.setProperties(classList, selectedClass, startDate, endDate);
@@ -162,6 +168,7 @@ public class LandingScreenController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../showRecordDialog/show_record_dialog.fxml"));
         DialogPane dialogPane = fxmlLoader.load();
+        dialogPane.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
 
         ShowRecordDialogController controller = fxmlLoader.getController();
         controller.setProperties(classList, selectedClass, startDate, endDate);
@@ -186,6 +193,7 @@ public class LandingScreenController implements Initializable {
         controller.setData(getClassID(), getClassName(), startDate.get(), endDate.get());
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Defaulter List");
         stage.show();
@@ -201,6 +209,7 @@ public class LandingScreenController implements Initializable {
         controller.setData(getClassID(), getClassName(), startDate.get(), endDate.get());
 
         Scene scene = new Scene(parent, 960, 540);
+        scene.getStylesheets().add(getClass().getResource("../../style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Defaulter List");
         stage.show();
