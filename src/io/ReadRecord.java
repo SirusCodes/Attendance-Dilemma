@@ -34,7 +34,7 @@ public class ReadRecord {
 
             Locale.setDefault(Locale.US);
             for (String[] row : data) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy, hh:mm:ss a", Locale.US);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy, h:m:s a", Locale.US);
                 String dateStr = row[2].trim();
                 System.out.println("|"+dateStr);
                 LocalDateTime date = LocalDateTime.parse(dateStr, formatter);

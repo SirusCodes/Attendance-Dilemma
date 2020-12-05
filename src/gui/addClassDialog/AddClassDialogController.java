@@ -41,7 +41,7 @@ public class AddClassDialogController implements Initializable {
                 yearComboBox.getValue(),
                 classComboBox.getValue(),
                 subBatch.getValue(),
-                Date.valueOf(LocalDate.now()),
+                Date.valueOf(LocalDate.of(2020, 6,1)),
                 checkBoxLab.isSelected()
         );
         if (!classModels.contains(model))

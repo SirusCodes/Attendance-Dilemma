@@ -140,6 +140,7 @@ public class AddStudentController implements Initializable {
 
         for (StudentModel model : studentModels) {
             String[] name = model.getStudentName().split(" ");
+            System.out.println(model.toString());
             studentListDB.add(new StudentRawObservable(model.getStudentId(), name[0], name[1]));
         }
         studentRawObservables = new ArrayList<>(studentListDB);

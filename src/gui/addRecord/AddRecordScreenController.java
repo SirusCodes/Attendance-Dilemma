@@ -141,7 +141,7 @@ public class AddRecordScreenController implements Initializable {
             final String name = model.getStudentName();
             boolean found = false;
             for (RecordTableObservable recordObservable : recordObservables) {
-                if (Objects.equals(recordObservable.getName(), name)) {
+                if (Objects.equals(recordObservable.getName().toLowerCase(), name.toLowerCase())) {
                     found = true;
                     recordObservable.setEmail(model.getStudentId());
                 }
